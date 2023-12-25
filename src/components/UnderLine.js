@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { color } from '../constant'
+import {  colorTheme } from '../constant'
 
 export default function UnderLine({marginTop}) {
     return (
-        <View style={{ backgroundColor: color.underline, height: 1, marginTop: marginTop }} />
+        <View style={{ backgroundColor: colorTheme.borderColor, height: 1, marginTop: marginTop }} />
     )
 }
 

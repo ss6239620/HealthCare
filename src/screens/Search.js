@@ -1,6 +1,6 @@
 import { ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native'
 import React, { useState } from 'react'
-import { blackText, color } from '../constant'
+import { blackText,  colorTheme } from '../constant'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import ArticleCard from '../components/ArticleCard'
@@ -32,7 +32,7 @@ export default function Profile() {
         <View style={{ backgroundColor: "white", elevation: 3, borderRadius: 10, alignSelf: "center", width: "90%", alignItems: "center" }}>
           <LottieView source={require("../assets/json/search.json")} autoPlay loop style={{ width: 360, height: 200, }} />
           <View style={styles.textInput}>
-            <MaterialIcons name="search" color="#1648CE" size={25} />
+            <MaterialIcons name="search" color={colorTheme.primaryColor} size={25} />
             <TextInput
               placeholder='Search here..'
               onChangeText={(text)=>setSearch(text)}
@@ -91,7 +91,7 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.appBackgrd
+    backgroundColor: colorTheme.appBackGroundColor
   },
   subContainer: {
     alignItems: 'center',

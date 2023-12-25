@@ -1,6 +1,6 @@
 import { Image, Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useCallback, useState } from 'react'
-import { blackText, blueText, color, grayText } from '../../constant'
+import { blackText, blueText,  colorTheme, grayText } from '../../constant'
 import Header from '../../components/Header'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -35,29 +35,29 @@ export default function DoctorDetail({ navigation }) {
                     <View style={{ height: 'auto', }}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center" }}>
                             <View>
-                                <View style={{ width: 50, height: 50, backgroundColor: color.iconLightBlue, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
-                                    <MaterialCommunityIcons name="account-group" color={color.iconDark} size={30} />
+                                <View style={{ width: 50, height: 50, backgroundColor: colorTheme.iconBackGroundColor, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
+                                    <MaterialCommunityIcons name="account-group" color={colorTheme.primaryColor} size={30} />
                                 </View>
                                 <Text style={[styles.bigText, { color: blueText.color, textAlign: 'center' }]}>7,500+</Text>
                                 <Text style={[styles.smallText, { textAlign: "center" }]}>Patients</Text>
                             </View>
                             <View>
-                                <View style={{ width: 50, height: 50, backgroundColor: color.iconLightBlue, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
-                                    <MaterialCommunityIcons name="bag-checked" color={color.iconDark} size={30} />
+                                <View style={{ width: 50, height: 50, backgroundColor: colorTheme.iconBackGroundColor, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
+                                    <MaterialCommunityIcons name="bag-checked" color={colorTheme.primaryColor} size={30} />
                                 </View>
                                 <Text style={[styles.bigText, { color: blueText.color, textAlign: "center" }]}>10+</Text>
                                 <Text style={[styles.smallText, { textAlign: "center" }]}>Years Exp.</Text>
                             </View>
                             <View>
-                                <View style={{ width: 50, height: 50, backgroundColor: color.iconLightBlue, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
-                                    <MaterialCommunityIcons name="star" color={color.iconDark} size={30} />
+                                <View style={{ width: 50, height: 50, backgroundColor: colorTheme.iconBackGroundColor, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
+                                    <MaterialCommunityIcons name="star" color={colorTheme.primaryColor} size={30} />
                                 </View>
                                 <Text style={[styles.bigText, { color: blueText.color, textAlign: "center" }]}>4.9+</Text>
                                 <Text style={[styles.smallText, { textAlign: "center" }]}>Rating</Text>
                             </View>
                             <View>
-                                <View style={{ width: 50, height: 50, backgroundColor: color.iconLightBlue, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
-                                    <MaterialCommunityIcons name="comment-processing" color={color.iconDark} size={30} />
+                                <View style={{ width: 50, height: 50, backgroundColor: colorTheme.iconBackGroundColor, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
+                                    <MaterialCommunityIcons name="comment-processing" color={colorTheme.primaryColor} size={30} />
                                 </View>
                                 <Text style={[styles.bigText, { color: blueText.color, textAlign: "center" }]}>4,956</Text>
                                 <Text style={[styles.smallText, { textAlign: "center" }]}>Review</Text>
@@ -103,13 +103,13 @@ export default function DoctorDetail({ navigation }) {
                         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                             <Text style={styles.bigText}>Reviews</Text>
                             <View style={{ flexDirection: "row" }}>
-                                <MaterialCommunityIcons name="pencil-plus" color="#1648CE" size={25} />
+                                <MaterialCommunityIcons name="pencil-plus" color={colorTheme.primaryColor} size={25} />
                                 <Text style={styles.blueText}>add review</Text>
                             </View>
                         </View>
                         <View style={{ width: '90%', marginBottom: 10, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                             <View style={styles.textInput}>
-                                <MaterialIcons name="search" color="#1648CE" size={25} />
+                                <MaterialIcons name="search" color={colorTheme.primaryColor} size={25} />
                                 <TextInput
                                     placeholder='Search in reviews'
                                     onChangeText={setSearch}
@@ -119,19 +119,20 @@ export default function DoctorDetail({ navigation }) {
                             </View>
                         </View>
                         <ScrollView horizontal={true} style={{ flexDirection: "row" }}>
-                            <TouchableOpacity style={{ width: 100, height: 30, borderWidth: 1, borderColor: color.borderColor, borderRadius: 15, justifyContent: "center", alignItems: "center", marginRight: 5, flexDirection: "row" }}>
+                            <TouchableOpacity style={{ width: 100, height: 30, borderWidth: 1, borderColor: colorTheme.borderColor, borderRadius: 15, justifyContent: "center", alignItems: "center", marginRight: 5, flexDirection: "row" }}>
                                 <FontAwesome name="sliders" color="black" size={20} />
                                 <Text style={[styles.smallText, { fontWeight: '500', marginLeft: 5, marginRight: 5 }]}>Filter</Text>
                                 <MaterialCommunityIcons name="menu-down" color="black" size={20} />
                             </TouchableOpacity>
                             {[1, 2, 3].map((num, index) => {
                                 return (
-                                    <TouchableOpacity style={{ width: 100, height: 30, borderWidth: 1, borderColor: color.borderColor, borderRadius: 15, justifyContent: "center", alignItems: "center", marginRight: 5 }} key={index}>
+                                    <TouchableOpacity style={{ width: 100, height: 30, borderWidth: 1, borderColor: colorTheme.borderColor, borderRadius: 15, justifyContent: "center", alignItems: "center", marginRight: 5 }} key={index}>
                                         <Text style={[styles.smallText, { fontWeight: '500' }]}>Filter</Text>
                                     </TouchableOpacity>
                                 )
                             })}
                         </ScrollView>
+                        <UnderLine marginTop={10} />
                         <DoctorRenameCard name={"Dale Thiel"} rating={4.9} time={22} />
                         <DoctorRenameCard name={"Tiffany Nitzsche"} rating={3.9} time={30} />
 
@@ -159,7 +160,7 @@ export default function DoctorDetail({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color.appBackgrd,
+        backgroundColor: colorTheme.appBackGroundColor,
         // marginTop: 10,
     },
     subContainer: {
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         padding: 7,
         borderWidth: 1,
-        borderColor: "#d3d2d6",
+        borderColor: colorTheme.borderColor,
         flexDirection: "row",
         alignItems: "center",
         marginTop: 5

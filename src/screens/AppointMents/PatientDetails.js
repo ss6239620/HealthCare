@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import { blackText, blueText, color, grayText } from '../../constant'
+import { blackText, blueText, colorTheme, grayText } from '../../constant'
 import Header from '../../components/Header'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
@@ -19,11 +19,11 @@ function Details({ title, inputTitle, inputBoxRequire }) {
                         multiline
                     />
                 :
-                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 1, backgroundColor: "white", borderColor: color.borderColor, borderWidth: 1, height: 45, borderRadius: 10, marginTop: 10 }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 1, backgroundColor: "white", borderColor: colorTheme.borderColor, borderWidth: 1, height: 45, borderRadius: 10, marginTop: 10 }}>
                     <View style={{ justifyContent: "center", alignItems: "center" }}>
                         <Text style={[styles.grayText, { marginLeft: 15, color: "black" }]}>{inputTitle}</Text>
                     </View>
-                    <MaterialIcons name="keyboard-arrow-down" color={color.iconDark} size={35} style={{}} />
+                    <MaterialIcons name="keyboard-arrow-down" color={colorTheme.primaryColor} size={35} style={{}} />
                 </View>
             }
         </>
@@ -66,7 +66,7 @@ export default function PatientDetails({navigation}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color.appBackgrd
+        backgroundColor: colorTheme.appBackGroundColor
     },
     subContainer: {
         width: "90%",
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         padding: 7,
         borderWidth: 1,
-        borderColor: "#d3d2d6",
+        borderColor: colorTheme.borderColor,
         height:200,
         textAlignVertical:'top',
     },

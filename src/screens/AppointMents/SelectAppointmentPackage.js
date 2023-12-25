@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import { blackText, blueText, color, grayText } from '../../constant'
+import { blackText, blueText, colorTheme, grayText } from '../../constant'
 import Header from '../../components/Header'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import RadioButton from '../../components/RadioButton'
@@ -10,8 +10,8 @@ function SelectPackage({packageTitle,icon,packagedesc,price}) {
     return (
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 3, backgroundColor: "white", borderRadius: 10, marginTop: 15, marginBottom: 5 }}>
             <View style={{ flexDirection: "row", margin: 10,width:"50%" }}>
-                <View style={{ width: 50, height: 50, backgroundColor: color.iconLightBlue, justifyContent: "center", alignItems: "center", borderRadius: 50, marginRight: 5 }}>
-                    <MaterialIcons name={icon} color={color.iconDark} size={30} />
+                <View style={{ width: 50, height: 50, backgroundColor: colorTheme.iconBackGroundColor, justifyContent: "center", alignItems: "center", borderRadius: 50, marginRight: 5 }}>
+                    <MaterialIcons name={icon} color={colorTheme.primaryColor} size={30} />
                 </View>
                 <View style={{ justifyContent: "center", alignItems: "flex-start",flex:1,flexWrap:'wrap' }}>
                     <Text style={[styles.smallText, { fontSize: 16, color: "black" }]}>{packageTitle}</Text>
@@ -31,7 +31,6 @@ function SelectPackage({packageTitle,icon,packagedesc,price}) {
                 </TouchableOpacity>
             </View>
             <View>
-
             </View>
         </View>
     )
@@ -44,12 +43,12 @@ export default function SelectAppointmentPackage({navigation}) {
                 <View style={styles.subContainer}>
                     <Header header={"Select Package"} leftIconName />
                     <Text style={[styles.bigText, { marginTop: 25 }]}>Select Duration</Text>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 1, backgroundColor: "white", borderColor: color.borderColor, borderWidth: 1, height: 45, borderRadius: 10, marginTop: 15 }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 1, backgroundColor: "white", borderColor: colorTheme.borderColor, borderWidth: 1, height: 45, borderRadius: 10, marginTop: 15 }}>
                         <View style={{ justifyContent: "center", alignItems: "center", flexDirection: "row" }}>
-                            <MaterialIcons name={"watch-later"} size={25} color={color.backgrdColor} style={{ marginLeft: 10 }} />
+                            <MaterialIcons name={"watch-later"} size={25} color={colorTheme.primaryColor} style={{ marginLeft: 10 }} />
                             <Text style={[styles.grayText, { marginLeft: 5 }]}>30 Minutes</Text>
                         </View>
-                        <MaterialIcons name="keyboard-arrow-down" color={color.iconDark} size={35} style={{}} />
+                        <MaterialIcons name="keyboard-arrow-down" color={colorTheme.primaryColor} size={35} style={{}} />
                     </View>
                     <Text style={[styles.bigText, { marginTop: 25 }]}>Select Package</Text>
                     <SelectPackage packageTitle={"Messaging"} packagedesc={"Chat With Doctor"} price={"20"} icon={"message"}/>
@@ -82,7 +81,7 @@ export default function SelectAppointmentPackage({navigation}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color.appBackgrd
+        backgroundColor: colorTheme.appBackGroundColor
     },
     subContainer: {
         width: "90%",

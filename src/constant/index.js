@@ -1,10 +1,22 @@
 const color = {
-    backgrdColor: '#1648CE',
+    backgrdColor: '#4CAF50',
     appBackgrd: "white",
     iconDark: "#1648CE",
-    iconLightBlue: "#dcf0f7",
+    iconLightBlue: "#",
     underline: "#e2e1e6",
     borderColor: "#d3d2d6",
+}
+
+const colorTheme = {
+    appBackGroundColor:"white",
+    primaryColor: "#407CE2",
+    secondaryColor: "#dcf0f7",
+    accentColor: "#FFC107",
+    // backgroundColor: "#FFFFFF",
+    textColor: "#333333",
+    borderColor: "#d3d2d6",
+    iconBackGroundColor:"#F5FAFF",
+    iconWithBlueBackGround:"#5c9cf7"
 }
 
 const blackText = {
@@ -15,12 +27,12 @@ const blackText = {
 const grayText = {
     fontSize: 14,
     color: "gray",
-    fontWeight: "400"
+    fontWeight: "normal"
 }
 const blueText = {
     fontSize: 17,
-    color: "#1648CE",
-    fontWeight: "600"
+    color: "#407CE2",
+    fontWeight: "600",
 }
 
-export { color, blackText, grayText, blueText }
+export {  blackText, grayText, blueText,colorTheme }

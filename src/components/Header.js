@@ -1,16 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { blackText } from '../constant'
+import { blackText, colorTheme } from '../constant'
+import {useNavigation} from '@react-navigation/native';
 
 export default function Header({ header, leftIconName, rightIconName, titleMargin, textColor, marginTop, children: Children,childrenStyle }) {
+    const navigation=useNavigation()
     return (
         <View style={{ flexDirection: "row", justifyContent: "space-between", height: 48, alignItems: 'center', marginTop: marginTop ? marginTop : 5, width: rightIconName ? "100%" : "73%", }}>
             {leftIconName
                 ?
-                <View style={{ width: 35, height: 35, backgroundColor: "white", justifyContent: "center", alignItems: "center", borderRadius: 50, borderWidth: 1, borderColor: "#dad9db" }}>
-                    <Ionicons name={"chevron-back"} size={20} color={"#1648CE"} />
-                </View>
+                <Pressable 
+                onPress={()=>{navigation.goBack()}}
+                style={{ width: 35, height: 35, backgroundColor: "white", justifyContent: "center", alignItems: "center", borderRadius: 50, borderWidth: 1, borderColor: colorTheme.borderColor }}>
+                    <Ionicons name={"chevron-back"} size={20} color={colorTheme.primaryColor} />
+                </Pressable>
                 :
                 null
             }
@@ -24,8 +28,8 @@ export default function Header({ header, leftIconName, rightIconName, titleMargi
             }
             {rightIconName
                 ?
-                <View style={{ width: 35, height: 35, backgroundColor: "white", justifyContent: "center", alignItems: "center", borderRadius: 50, borderWidth: 1, borderColor: "#dad9db" }}>
-                    <Ionicons name={rightIconName} size={25} color={"#1648CE"} />
+                <View style={{ width: 35, height: 35, backgroundColor: "white", justifyContent: "center", alignItems: "center", borderRadius: 50, borderWidth: 1, borderColor: colorTheme.borderColor }}>
+                    <Ionicons name={rightIconName} size={25} color={colorTheme.primaryColor} />
                 </View>
                 :
                 null

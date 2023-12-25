@@ -1,6 +1,6 @@
-import { Modal, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Alert, Modal, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
-import { blackText, blueText, color, grayText } from '../../constant'
+import { blackText, blueText, color, colorTheme, grayText } from '../../constant'
 import Header from '../Header'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import UnderLine from '../UnderLine'
@@ -15,7 +15,7 @@ const App = ({ modalVisible, setModalVisible }) => {
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
+        Alert.alert('Location Closed');
         setModalVisible(!modalVisible);
       }}>
       <View style={styles.container}>
@@ -24,12 +24,12 @@ const App = ({ modalVisible, setModalVisible }) => {
             style={{ flexDirection: "row", alignItems: "center", marginTop: 10 }}
             onPress={() => setModalVisible(!modalVisible)}
           >
-            <MaterialIcons name="keyboard-arrow-down" color={color.iconDark} size={35} style={{ marginRight: 10 }} />
+            <MaterialIcons name="keyboard-arrow-down" color={colorTheme.primaryColor} size={35} style={{ marginRight: 10 }} />
             <Text style={styles.bigText}>Select Location</Text>
           </Pressable>
           <View style={styles.textInput}>
             <View style={{ flexDirection: "row", width: "90%", justifyContent: "center", alignItems: "center" }}>
-              <MaterialIcons name="search" color={grayText.color} size={30} style={{ marginLeft: 15 }} />
+              <MaterialIcons name="search" color={colorTheme.primaryColor} size={30} style={{ marginLeft: 15 }} />
               <TextInput
                 placeholder='Location'
                 onChangeText={setSearch}
@@ -37,10 +37,10 @@ const App = ({ modalVisible, setModalVisible }) => {
                 style={{ height: 48, width: "92%", }}
               />
             </View>
-            <MaterialIcons name={"cancel"} size={25} color={color.iconDark} />
+            <MaterialIcons name={"cancel"} size={25} color={colorTheme.primaryColor} />
           </View>
           <View style={{ justifyContent: "flex-start", alignItems: "center", flexDirection: 'row', marginTop: 20 }}>
-            <MaterialIcons name={"location-on"} size={30} color={color.iconDark} style={{ marginRight: 10 }} />
+            <MaterialIcons name={"location-on"} size={30} color={colorTheme.primaryColor} style={{ marginRight: 10 }} />
             <Text style={styles.bigText}>Use my current location</Text>
           </View>
           <UnderLine marginTop={15} />
@@ -57,7 +57,7 @@ const App = ({ modalVisible, setModalVisible }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.appBackgrd
+    backgroundColor: colorTheme.appBackGroundColor
   },
   subContainer: {
     width: "90%",
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 7,
     borderWidth: 1,
-    borderColor: "#d3d2d6",
+    borderColor: colorTheme.borderColor,
     flexDirection: "row",
     alignItems: "center",
     marginTop: 30,

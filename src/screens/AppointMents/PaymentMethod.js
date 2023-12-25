@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import { blackText, blueText, color, grayText } from '../../constant'
+import { blackText, blueText, colorTheme, grayText } from '../../constant'
 import Header from '../../components/Header'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
@@ -8,7 +8,7 @@ import RadioButton from '../../components/RadioButton'
 
 function Payment({ icon, method,colors }) {
   return (
-    <Pressable style={{ flexDirection: "row", borderWidth: 1, borderColor: color.borderColor, borderRadius: 10, height: 45, alignItems: 'center',marginTop:5 }}>
+    <Pressable style={{ flexDirection: "row", borderWidth: 1, borderColor: colorTheme.borderColor, borderRadius: 10, height: 45, alignItems: 'center',marginTop:5 }}>
       <FontAwesome6 name={icon} size={35} color={colors} style={{ marginLeft: 10, marginRight: 10 }} />
       <Text>{method}</Text>
     </Pressable>
@@ -21,9 +21,9 @@ export default function PaymentMethod() {
       <View style={styles.subContainer}>
         <Header header={"Payment Methods"} leftIconName />
         <Text style={[styles.bigText, { marginTop: 25 }]}>Credit & Debit Card</Text>
-        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 1, backgroundColor: "white", borderColor: color.borderColor, borderWidth: 1, height: 45, borderRadius: 10, marginTop: 15 }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 1, backgroundColor: "white", borderColor: colorTheme.borderColor, borderWidth: 1, height: 45, borderRadius: 10, marginTop: 15 }}>
           <View style={{ justifyContent: "center", alignItems: "center", flexDirection: "row" }}>
-            <MaterialIcons name={"credit-card"} size={25} color={color.backgrdColor} style={{ marginLeft: 10 }} />
+            <MaterialIcons name={"credit-card"} size={25} color={colorTheme.primaryColor} style={{ marginLeft: 10 }} />
             <Text style={[styles.grayText, { marginLeft: 5 }]}>Add New Card</Text>
           </View>
           <TouchableOpacity onPress={() => selected ? setselected(false) : setselected(true)} style={{ marginRight: 10 }}>
@@ -42,7 +42,7 @@ export default function PaymentMethod() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.appBackgrd
+    backgroundColor: colorTheme.appBackGroundColor
   },
   subContainer: {
     width: "90%",

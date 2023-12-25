@@ -2,12 +2,14 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Home from '../screens/Home'
-import Appointment from '../screens/Appointment'
-import Profile from '../screens/Profile'
+import Home from '../screens/Home/Home'
+import Appointment from '../screens/AppointMents/Appointment'
+import Profile from '../screens/Profile/Profile'
 import Search from '../screens/Search'
 import Chat from '../screens/Chat/Chat';
+import { colorTheme } from '../constant';
 
 
 const Tab = createBottomTabNavigator();
@@ -18,7 +20,7 @@ export default function BottomTab() {
             initialRouteName='Home'
             screenOptions={{
                 tabBarInactiveTintColor: '#929CAD',
-                tabBarActiveTintColor: '#1648CE',
+                tabBarActiveTintColor: colorTheme.primaryColor,
                 tabBarHideOnKeyboard: true
             }}
         >
@@ -53,7 +55,7 @@ export default function BottomTab() {
                     headerShown: false,
                     tabBarLabel: 'Appointment',
                     tabBarIcon: ({ color, size }) => (
-                        <Icon name="plus" size={30} color={color} />
+                        <Fontisto name="date" size={size} color={color} />
                     )
                 }}
             />

@@ -1,10 +1,10 @@
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-import { color } from '../constant'
+import { color, colorTheme } from '../constant'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-export default function DoctorCard({ isButtonRequired }) {
+export default function DoctorCard({ navigation, isButtonRequired }) {
   return (
     <View style={styles.card}>
       <View style={{ flexDirection: 'row', margin: 15 }}>
@@ -25,25 +25,26 @@ export default function DoctorCard({ isButtonRequired }) {
       </View>
       <View style={styles.subCard}>
         <View style={{ flexDirection: "row" }}>
-          <Icon name="calendar" color={"#1648CE"} size={20} style={{ marginRight: 5 }} />
+          <Icon name="calendar" color={colorTheme.primaryColor} size={20} style={{ marginRight: 5 }} />
           <Text style={styles.smallText}>Monday, Dec 23</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
-          <MaterialIcon name="clock-time-four-outline" color={"#1648CE"} size={20} style={{ marginRight: 5 }} />
+          <MaterialIcon name="clock-time-four-outline" color={colorTheme.primaryColor} size={20} style={{ marginRight: 5 }} />
           <Text style={styles.smallText}>12:00-13:00</Text>
         </View>
       </View>
       {isButtonRequired ?
         <View style={[styles.subCard, { backgroundColor: 'white' }]}>
           <TouchableOpacity
-            style={{ backgroundColor: "#1648CE", width: 120, height: 40, borderRadius: 50, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#1648CE' }}
+            style={{ backgroundColor: colorTheme.primaryColor, width: 120, height: 40, borderRadius: 50, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: colorTheme.borderColor }}
           // onPress={() => { setIsReshedule(true) }}
+          onPress={() => { navigation.navigate('RescheduledAppointment') }}
           >
             <Text style={{ color: "white" }}>Reschedule</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ backgroundColor: "white", width: 120, height: 40, borderRadius: 50, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#1648CE' }}
-          // onPress={() => { setIsReshedule(false) }}
+            style={{ backgroundColor: "white", width: 120, height: 40, borderRadius: 50, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: colorTheme.borderColor }}
+            onPress={() => { navigation.navigate('CancelBooking') }}
           >
             <Text style={{ color: "black" }}>Cancel</Text>
           </TouchableOpacity>
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     color: "black"
   },
   card: {
-    backgroundColor: 'white',
+    backgroundColor: colorTheme.appBackGroundColor,
     height: "auto",
     borderRadius: 10,
     elevation: 5
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
   subCard: {
     margin: 15,
     height: 50,
-    backgroundColor: "#F5FAFF",
+    backgroundColor: "#deecfa",
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',

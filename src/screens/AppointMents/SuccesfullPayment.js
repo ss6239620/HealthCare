@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { color, blackText, blueText, grayText } from '../../constant'
+import {  blackText, blueText, grayText, colorTheme } from '../../constant'
 import Header from '../../components/Header'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -13,7 +13,7 @@ export default function Chat({navigation}) {
         <View style={styles.subContainer}>
           <Header header={"Payment"} leftIconName={true} titleMargin={40} />
           <View style={{ justifyContent: "center", alignItems: 'center', marginTop: 100 }}>
-            <AntDesign name={"checkcircle"} size={100} color={color.iconDark} />
+            <AntDesign name={"checkcircle"} size={100} color={colorTheme.primaryColor} />
             <Text style={[styles.bigText, { fontWeight: "900", fontSize: 25, marginTop: 10 }]}>Payment Successfull!</Text>
             <Text style={[styles.smallText, { marginTop: 15 }]}>You have Successfully booked appointment with</Text>
             <Text style={styles.bigText}>Dr. Jonny Wilson</Text>
@@ -21,21 +21,21 @@ export default function Chat({navigation}) {
           <View style={{ marginTop: 30, backgroundColor: "white", elevation: 2, marginBottom: 10, flexDirection: 'row', borderRadius: 10, justifyContent: "space-between" }}>
             <View>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <MaterialIcons name={"person"} size={25} color={color.iconDark} />
+                <MaterialIcons name={"person"} size={25} color={colorTheme.primaryColor} />
                 <Text style={[styles.smallText, { color: "black", marginLeft: 5 }]}>Ether Howard</Text>
               </View>
               <View style={{ flexDirection: "row", alignItems: "center", marginTop: 5 }}>
-                <MaterialIcons name={"date-range"} size={25} color={color.iconDark} />
+                <MaterialIcons name={"date-range"} size={25} color={colorTheme.primaryColor} />
                 <Text style={[styles.smallText, { color: "black", marginLeft: 5 }]}>16 Aug, 2023</Text>
               </View>
             </View>
             <View>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <MaterialIcons name={"attach-money"} size={25} color={color.iconDark} />
+                <MaterialIcons name={"attach-money"} size={25} color={colorTheme.primaryColor} />
                 <Text style={[styles.smallText, { color: "black", marginLeft: 5 }]}>$20</Text>
               </View>
               <View style={{ flexDirection: "row", alignItems: "center", marginTop: 5 }}>
-                <MaterialIcons name={"watch-later"} size={25} color={color.iconDark} />
+                <MaterialIcons name={"watch-later"} size={25} color={colorTheme.primaryColor} />
                 <Text style={[styles.smallText, { color: "black", marginLeft: 5 }]}>10:00 AM</Text>
               </View>
             </View>
@@ -72,7 +72,7 @@ export default function Chat({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.appBackgrd
+    backgroundColor: colorTheme.appBackGroundColor
   },
   subContainer: {
     width: "90%",

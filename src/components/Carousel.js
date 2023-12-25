@@ -1,145 +1,101 @@
-import React, { useCallback, memo, useRef, useState } from "react";
-import {
-  FlatList,
-  View,
-  Dimensions,
-  Text,
-  StyleSheet,
-  Image,
-} from "react-native";
-import DoctorCard from "./DoctorCard";
+import { StyleSheet, View, Dimensions, FlatList, Pressable } from 'react-native';
+import React, { useState, useEffect, useRef,useMemo } from 'react';
+import { colorTheme } from '../constant';
 
-const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+const DOT_SIZE = 8;
+const { width } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
-  slide: {
-    height: windowHeight,
-    width: windowWidth,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  slideImage: { width: windowWidth * 0.9, height: windowHeight * 0.7 },
-  slideTitle: { fontSize: 24 },
-  slideSubtitle: { fontSize: 18 },
+export default function Carousel({ data, children }) {
+  const [indexDot, setIndexDot] = useState(0);
+  const flatListRef = useRef(null);
 
-  pagination: {
-    position: "absolute",
-    bottom: 8,
-    width: "100%",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-  paginationDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginHorizontal: 2,
-  },
-  paginationDotActive: { backgroundColor: "lightblue" },
-  paginationDotInactive: { backgroundColor: "gray" },
-
-  carousel: { flex: 1 },
-});
-
-// const slideList = Array.from({ length: 30 }).map((_, i) => {
-//   return {
-//     id: i,
-//     image: `https://picsum.photos/1440/2842?random=${i}`,
-//     title: `This is the title ${i + 1}!`,
-//     subtitle: `This is the subtitle ${i + 1}!`,
-//   };
-// });
-
-const Slide = memo(function Slide({ data }) {
-  return (
-   <DoctorCard />
-  );
-});
-
-const slideList=[
-    {
-        name:"Dr. Joe Doe"
-    },
-    {
-        name:"Dr. Cahrloote"
-    },
-]
-function Pagination({ index }) {
-  return (
-    <View style={styles.pagination} pointerEvents="none">
-      {slideList.map((_, i) => {
-        return (
-          <View
-            key={i}
-            style={[
-              styles.paginationDot,
-              index === i
-                ? styles.paginationDotActive
-                : styles.paginationDotInactive,
-            ]}
-          />
-        );
-      })}
-    </View>
-  );
-}
-
-export default function Carousel() {
-  const [index, setIndex] = useState(0);
-  const indexRef = useRef(index);
-  indexRef.current = index;
-  const onScroll = useCallback((event) => {
-    const slideSize = event.nativeEvent.layoutMeasurement.width;
-    const index = event.nativeEvent.contentOffset.x / slideSize;
-    const roundIndex = Math.round(index);
-
-    const distance = Math.abs(roundIndex - index);
-
-    // Prevent one pixel triggering setIndex in the middle
-    // of the transition. With this we have to scroll a bit
-    // more to trigger the index change.
-    const isNoMansLand = 0.4 < distance;
-
-    if (roundIndex !== indexRef.current && !isNoMansLand) {
-      setIndex(roundIndex);
-    }
-  }, []);
-
-  const flatListOptimizationProps = {
-    initialNumToRender: 0,
-    maxToRenderPerBatch: 1,
-    removeClippedSubviews: true,
-    scrollEventThrottle: 16,
-    windowSize: 2,
-    keyExtractor: useCallback(s => String(s.id), []),
-    getItemLayout: useCallback(
-      (_, index) => ({
-        index,
-        length: windowWidth,
-        offset: index * windowWidth,
-      }),
-      []
-    ),
+  const onChangeDot = (event) => {
+    setIndexDot(Math.ceil(event.nativeEvent.contentOffset.x / width));
   };
 
-  const renderItem = useCallback(function renderItem({ item }) {
-    return <Slide data={item} />;
-  }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Increment indexDot to move to the next item
+      setIndexDot((prevIndex) => (prevIndex + 1) % data.length);
+      // Scroll to the next item
+      flatListRef.current?.scrollToIndex({
+        index: (indexDot + 1) % data.length,
+        animated: true,
+      });
+    }, 3000); // Adjust the interval (in milliseconds) based on your preference
+
+    return () => clearInterval(interval); // Cleanup the interval on component unmount
+  }, [data.length, indexDot]);
+
+  const renderPagination = useMemo(() => {
+    return (
+      <View style={styles.wrapPagination}>
+        {data.map((_, index) => (
+          <View
+            key={index}
+            style={[
+              styles.dot,
+              {
+                backgroundColor:
+                  indexDot === index ? colorTheme.primaryColor : 'rgba(0, 0, 0, 0.3)',
+              },
+            ]}
+          />
+        ))}
+      </View>
+    );
+  }, [data?.length, indexDot]);
+
+  const renderItem = ({ item }) => (
+    <Pressable style={styles.wrapItem}>
+      <View style={{ ...styles.item, width: '90%' }}>{children}</View>
+    </Pressable>
+  );
 
   return (
     <>
       <FlatList
-        data={slideList}
-        style={styles.carousel}
-        renderItem={renderItem}
-        pagingEnabled
+        ref={flatListRef}
         horizontal
+        pagingEnabled
+        disableIntervalMomentum
         showsHorizontalScrollIndicator={false}
-        bounces={false}
-        onScroll={onScroll}
-        {...flatListOptimizationProps}
+        data={data}
+        renderItem={renderItem}
+        scrollEventThrottle={200}
+        onMomentumScrollEnd={onChangeDot}
+        keyExtractor={(item, index) => index.toString()}
+        initialScrollIndex={indexDot}
       />
-      <Pagination index={index}></Pagination>
+      {renderPagination}
     </>
   );
 }
+
+
+const styles = StyleSheet.create({
+  wrapPagination: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dot: {
+    height: DOT_SIZE,
+    width: DOT_SIZE,
+    borderRadius: DOT_SIZE / 2,
+    marginHorizontal: 3,
+  },
+  wrapItem: {
+    width:width,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // backgroundColor:"red"
+  },
+  item: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    // borderWidth: 1,
+  },
+});

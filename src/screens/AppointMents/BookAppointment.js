@@ -1,6 +1,6 @@
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import { blackText, blueText, color, grayText } from '../../constant'
+import { blackText, blueText,  colorTheme, grayText } from '../../constant'
 import Header from '../../components/Header'
 import DoctorProfileCard from '../../components/DoctorProfileCard'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -22,29 +22,29 @@ export default function BookAppointment({navigation}) {
                     <View style={{ height: 'auto', }}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center" }}>
                             <View>
-                                <View style={{ width: 50, height: 50, backgroundColor: color.iconLightBlue, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
-                                    <MaterialCommunityIcons name="account-group" color={color.iconDark} size={30} />
+                                <View style={{ width: 50, height: 50, backgroundColor: colorTheme.iconBackGroundColor, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
+                                    <MaterialCommunityIcons name="account-group" color={colorTheme.primaryColor} size={30} />
                                 </View>
                                 <Text style={[styles.bigText, { color: blueText.color, textAlign: 'center' }]}>7,500+</Text>
                                 <Text style={[styles.smallText, { textAlign: "center" }]}>Patients</Text>
                             </View>
                             <View>
-                                <View style={{ width: 50, height: 50, backgroundColor: color.iconLightBlue, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
-                                    <MaterialCommunityIcons name="bag-checked" color={color.iconDark} size={30} />
+                                <View style={{ width: 50, height: 50, backgroundColor:colorTheme.iconBackGroundColor, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
+                                    <MaterialCommunityIcons name="bag-checked" color={colorTheme.primaryColor} size={30} />
                                 </View>
                                 <Text style={[styles.bigText, { color: blueText.color, textAlign: "center" }]}>10+</Text>
                                 <Text style={[styles.smallText, { textAlign: "center" }]}>Years Exp.</Text>
                             </View>
                             <View>
-                                <View style={{ width: 50, height: 50, backgroundColor: color.iconLightBlue, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
-                                    <MaterialCommunityIcons name="star" color={color.iconDark} size={30} />
+                                <View style={{ width: 50, height: 50, backgroundColor: colorTheme.iconBackGroundColor, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
+                                    <MaterialCommunityIcons name="star" color={colorTheme.primaryColor} size={30} />
                                 </View>
                                 <Text style={[styles.bigText, { color: blueText.color, textAlign: "center" }]}>4.9+</Text>
                                 <Text style={[styles.smallText, { textAlign: "center" }]}>Rating</Text>
                             </View>
                             <View>
-                                <View style={{ width: 50, height: 50, backgroundColor: color.iconLightBlue, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
-                                    <MaterialCommunityIcons name="comment-processing" color={color.iconDark} size={30} />
+                                <View style={{ width: 50, height: 50, backgroundColor: colorTheme.iconBackGroundColor, justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
+                                    <MaterialCommunityIcons name="comment-processing" color={colorTheme.primaryColor} size={30} />
                                 </View>
                                 <Text style={[styles.bigText, { color: blueText.color, textAlign: "center" }]}>4,956</Text>
                                 <Text style={[styles.smallText, { textAlign: "center" }]}>Review</Text>
@@ -58,7 +58,7 @@ export default function BookAppointment({navigation}) {
                             return (
                                 <Pressable 
                                 key={index} 
-                                style={{ width: 100, height: 40, borderWidth: 1, borderColor: color.borderColor, borderRadius: 15, justifyContent: "center", alignItems: "center", marginRight: 5, backgroundColor: index === selectDay ? color.backgrdColor : "white" }}
+                                style={{ width: 100, height: 40, borderWidth: 1, borderColor: colorTheme.borderColor, borderRadius: 15, justifyContent: "center", alignItems: "center", marginRight: 5, backgroundColor: index === selectDay ? colorTheme.primaryColor : "white" }}
                                 onPress={() => setSelectDay(index)}
                                 >
                                     <Text style={[styles.smallText, { fontWeight: '300', color: index === selectDay ? "white" : "black" }]}>{day}</Text>
@@ -73,7 +73,7 @@ export default function BookAppointment({navigation}) {
                             return (
                                 <Pressable
                                     key={index}
-                                    style={{ width: 100, height: 40, borderWidth: 1, borderColor: color.borderColor, borderRadius: 15, justifyContent: "center", alignItems: "center", marginRight: 5, backgroundColor: index === selectTime ? color.backgrdColor : "white", flexDirection: "row" }}
+                                    style={{ width: 100, height: 40, borderWidth: 1, borderColor: colorTheme.borderColor, borderRadius: 15, justifyContent: "center", alignItems: "center", marginRight: 5, backgroundColor: index === selectTime ? colorTheme.primaryColor : "white", flexDirection: "row" }}
                                     onPress={() => setSelectTime(index)}
                                 >
                                     <Text style={[styles.smallText, { fontWeight: '300', color: index === selectTime ? "white" : "black", marginRight: 5 }]}>{index}:00</Text>
@@ -119,7 +119,7 @@ export default function BookAppointment({navigation}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color.appBackgrd
+        backgroundColor: colorTheme.appBackGroundColor
     },
     subContainer: {
         width: "90%",
@@ -144,10 +144,10 @@ const styles = StyleSheet.create({
     textInput: {
         height: 40,
         borderRadius: 50,
-        backgroundColor: "#d3d2d6",
+        backgroundColor: colorTheme.backgroundColor,
         padding: 7,
         borderWidth: 1,
-        borderColor: "#d3d2d6",
+        borderColor: colorTheme.borderColor,
         flexDirection: "row",
         alignItems: "center",
         marginTop: 30,

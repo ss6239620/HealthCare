@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { color } from '../constant'
+import { color, colorTheme } from '../constant'
 
 export default function RadioButton({style,selected}) {
     return (
@@ -9,7 +9,7 @@ export default function RadioButton({style,selected}) {
             width: 24,
             borderRadius: 12,
             borderWidth: 2,
-            borderColor: color.backgrdColor,
+            borderColor: colorTheme.primaryColor,
             alignItems: 'center',
             justifyContent: 'center',
         }, style]}>
@@ -19,7 +19,7 @@ export default function RadioButton({style,selected}) {
                         height: 12,
                         width: 12,
                         borderRadius: 6,
-                        backgroundColor: color.backgrdColor,
+                        backgroundColor: colorTheme.primaryColor,
                     }} />
                     : null
             }

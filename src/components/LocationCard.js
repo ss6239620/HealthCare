@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { grayText,color } from '../constant'
+import { grayText, colorTheme } from '../constant'
 import UnderLine from './UnderLine'
 
 export default function LocationCard() {
@@ -9,7 +9,7 @@ export default function LocationCard() {
         <View style={{ backgroundColor: "white", elevation: 2, borderRadius: 10,marginTop:10 }}>
             <View style={{ margin: 15, justifyContent: "flex-start", alignItems: "center", flexDirection: 'row', marginTop: 5 }}>
                 <View>
-                    <MaterialIcons name={"location-on"} size={30} color={color.iconDark} style={{ marginRight: 10 }} />
+                    <MaterialIcons name={"location-on"} size={30} color={colorTheme.primaryColor} style={{ marginRight: 10 }} />
                     <Text>1.5Km</Text>
                 </View>
                 <View style={{ marginLeft: 10 }}>

@@ -1,6 +1,6 @@
 import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import { blueText, blackText, color, grayText } from '../../constant'
+import { blueText, blackText,  grayText, colorTheme } from '../../constant'
 import Header from '../../components/Header'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
@@ -72,7 +72,7 @@ function MessageBox({ data, isUser }) {
     return (
         <View style={[styles.subContainer, { marginTop: 15 }]}>
             <View style={{ width: "85%", alignSelf: isUser ? "flex-end" : null }}>
-                <View style={{ backgroundColor: isUser ? color.backgrdColor : "white", elevation: 2, marginBottom: 2, borderRadius: 10, flexWrap: 'wrap' }}>
+                <View style={{ backgroundColor: isUser ? colorTheme.primaryColor : "white", elevation: 2, marginBottom: 2, borderRadius: 10, flexWrap: 'wrap' }}>
                     <View style={{ margin: 10 }}>
                         <Text style={{ color: isUser ? "white" : "black" }}>
                             {data.message}
@@ -122,7 +122,7 @@ export default function Message() {
                     })}
                 </ScrollView>
                 <View style={styles.textInput}>
-                    <MaterialIcons name="mic" color={color.iconDark} size={25} />
+                    <MaterialIcons name="mic" color={colorTheme.primaryColor} size={25} />
                     <TextInput
                         placeholder='Type Message here..'
                         onChangeText={setSearch}
@@ -130,7 +130,7 @@ export default function Message() {
                         style={{ width: "80%" }}
                         multiline
                     />
-                    <MaterialIcons name="send" color={color.iconDark} size={25} style={{marginRight:5}} />
+                    <MaterialIcons name="send" color={colorTheme.primaryColor} size={25} style={{marginRight:5}} />
                 </View>
             </View>
         </View >
@@ -140,14 +140,12 @@ export default function Message() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color.iconDark
+        backgroundColor: colorTheme.primaryColor
     },
     subContainer: {
         width: "90%",
         height: "auto",
         alignSelf: "center",
-        // marginBottom:100
-        // backgroundColor:color.iconDark
     },
     bigText: {
         fontSize: blackText.fontSize,
@@ -170,7 +168,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         padding: 0,
         borderWidth: 1,
-        borderColor: "#d3d2d6",
+        borderColor: colorTheme.borderColor,
         flexDirection: "row",
         alignItems: "center",
         position: "absolute",
@@ -185,7 +183,7 @@ const styles = StyleSheet.create({
         borderRadius: 150 / 2,
         overflow: "hidden",
         borderWidth: 1,
-        borderColor: color.borderColor,
+        borderColor: colorTheme.borderColor,
         marginRight: 10,
         backgroundColor: "white"
     },

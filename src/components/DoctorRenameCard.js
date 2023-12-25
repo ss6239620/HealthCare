@@ -6,7 +6,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 export default function DoctorDetailCard(props) {
     return (
         <View>
-            <UnderLine marginTop={10} />
             <View style={{ flexDirection: "row", marginTop: 15, justifyContent: "space-between" }}>
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
                     <Image source={require('../assets/img/health.jpg')} resizeMode='contain' style={[styles.image, { width: 40, height: 40 }]} />

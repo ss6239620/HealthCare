@@ -1,6 +1,6 @@
 import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import { blueText, blackText, color, grayText } from '../../constant'
+import { blueText, blackText, grayText, colorTheme } from '../../constant'
 import Header from '../../components/Header'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
@@ -11,7 +11,7 @@ export default function Chat({navigation}) {
       <View style={styles.subContainer}>
         <Header header={"Chat"} leftIconName={true} titleMargin={60} textColor={"white"} marginTop={10} />
         <View style={styles.textInput}>
-          <MaterialIcons name="search" color={color.iconDark} size={25} />
+          <MaterialIcons name="search" color={colorTheme.primaryColor} size={25} />
           <TextInput
             placeholder='Search Doctor'
             onChangeText={setSearch}
@@ -69,13 +69,12 @@ export default function Chat({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.iconDark
+    backgroundColor: colorTheme.primaryColor
   },
   subContainer: {
     width: "90%",
     height: "auto",
     alignSelf: "center",
-    // backgroundColor:color.iconDark
   },
   bigText: {
     fontSize: blackText.fontSize,
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 7,
     borderWidth: 1,
-    borderColor: "#d3d2d6",
+    borderColor: colorTheme.borderColor,
     flexDirection: "row",
     // justifyContent:"center",
     alignItems: "center",
@@ -111,7 +110,7 @@ const styles = StyleSheet.create({
     borderRadius: 150 / 2,
     overflow: "hidden",
     borderWidth: 2,
-    borderColor: color.backgrdColor,
+    borderColor: colorTheme.primaryColor,
     marginRight: 10
   },
 })

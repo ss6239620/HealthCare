@@ -5,7 +5,7 @@ import LottieView from 'lottie-react-native'
 export default function App({navigation}) {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate("Auth")
+      navigation.navigate("GetStarted")
     }, 4000);
   }, [])
   
