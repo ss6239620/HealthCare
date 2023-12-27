@@ -1,11 +1,9 @@
-import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Modal, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
-import { blackText, blueText, color, colorTheme, grayText } from '../../constant'
-import Header from '../Header'
+import { blackText, blueText, colorTheme, grayText } from '../../constant'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import UnderLine from '../UnderLine'
-import LocationCard from '../LocationCard'
+
 
 function Notification({ iconBackGroundColor, iconColor, iconName, Date, isDate }) {
     return (
@@ -42,7 +40,6 @@ const NotificationModal = ({ modalVisible, setModalVisible }) => {
             transparent={true}
             visible={modalVisible}
             onRequestClose={() => {
-                Alert.alert('Location Closed');
                 setModalVisible(!modalVisible);
             }}>
             <View style={styles.container}>

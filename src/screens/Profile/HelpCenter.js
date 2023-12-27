@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, useWindowDimensions } from 'react-native'
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, useWindowDimensions } from 'react-native'
 import React, { useState } from 'react'
 import { colorTheme, blackText, blueText, grayText } from '../../constant'
 import Header from '../../components/Header'
@@ -55,10 +55,13 @@ function FAQTab() {
         <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 10 }} >
             {FAQ_Queries.map((_, index) => {
                 return (
-                    <View key={index} style={[styles.subContainer, { elevation: 2, backgroundColor: 'white', marginBottom: 20, borderRadius: 5 }]}>
+                    <Pressable
+                     key={index} 
+                     onPress={() => { handleOpener(_) }} 
+                     style={[styles.subContainer, { elevation: 2, backgroundColor: 'white', marginBottom: 20, borderRadius: 5 }]}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 8 }}>
                             <Text style={[styles.smallText, { color: "black" }]}>{_}</Text>
-                            <MaterialIcons name={'keyboard-arrow-up'} size={25} color={colorTheme.primaryColor} onPress={() => { handleOpener(_) }} />
+                            <MaterialIcons name={'keyboard-arrow-up'} size={25} color={colorTheme.primaryColor} />
                         </View>
                         {QueryOpen === _ ?
                             <>
@@ -66,7 +69,7 @@ function FAQTab() {
                                 <Text style={[styles.smallText, { fontSize: 12, fontWeight: '600', padding: 8 }]}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, quibusdam? Hic ratione numquam natus odio itaque amet, atque doloribus culpa deleniti totam modi sed iste qui animi vero error quo.</Text>
                             </> : null
                         }
-                    </View>
+                    </Pressable>
                 )
             })}
         </ScrollView>
@@ -83,12 +86,15 @@ function ContactUs(params) {
             <View style={[styles.subContainer,{marginTop:10}]}>
                 {Contact.map((_, index) => {
                     return (
-                        <View key={index} style={{ backgroundColor: "white", elevation: 2, borderRadius: 5, marginTop: 10, marginBottom: 5 }}>
+                        <Pressable
+                         key={index} 
+                         onPress={() => { handleOpener(_) }}
+                         style={{ backgroundColor: "white", elevation: 2, borderRadius: 5, marginTop: 10, marginBottom: 5 }}>
                             <View style={{ flexDirection: "row", padding: 10, }}>
                                 <MaterialCommunityIcons name={_.iconName} color={colorTheme.primaryColor} size={25} />
                                 <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: "center", width: '90%', paddingHorizontal: 10 }}>
                                     <Text style={styles.bigText}>{_.title}</Text>
-                                    <MaterialIcons name={'keyboard-arrow-down'} color={colorTheme.primaryColor} size={30} onPress={() => { handleOpener(_) }} />
+                                    <MaterialIcons name={'keyboard-arrow-down'} color={colorTheme.primaryColor} size={30} />
                                 </View>
                             </View>
                             {ContactOpen === _ ?
@@ -98,7 +104,7 @@ function ContactUs(params) {
                                 </>
                                 : null
                             }
-                        </View>
+                        </Pressable>
                     )
                 })}
 

@@ -19,6 +19,7 @@
     "react-native": "0.73.1",
     "react-native-confirmation-code-field": "^7.3.2",
     "react-native-pager-view": "^6.2.3",
+    "react-native-reanimated": "^3.6.1",
     "react-native-safe-area-context": "^4.8.1",
     "react-native-screens": "^3.29.0",
     "react-native-tab-view": "^3.5.2",

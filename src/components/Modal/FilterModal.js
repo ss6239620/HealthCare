@@ -1,10 +1,8 @@
-import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Modal, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { blackText, blueText, colorTheme, grayText } from '../../constant'
-import UnderLine from '../UnderLine'
-import Header from '../Header'
 import RadioButton from '../RadioButton'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
 
@@ -49,7 +47,6 @@ export default function FilterModal({ modalVisible, setModalVisible }) {
             transparent={true}
             visible={modalVisible}
             onRequestClose={() => {
-                Alert.alert('Filter Closed');
                 setModalVisible(!modalVisible);
             }}>
             <View style={styles.container}>
@@ -143,13 +140,13 @@ export default function FilterModal({ modalVisible, setModalVisible }) {
                 }}>
                     <TouchableOpacity
                         style={{ width: "40%", backgroundColor: colorTheme.iconBackGroundColor, height: 40, borderRadius: 50, justifyContent: "center" }}
-                        onPress={() => navigation.navigate('PatientDetails')}
+                        // onPress={() => navigation.navigate('PatientDetails')}
                     >
                         <Text style={[styles.smallText, { color: blueText.color, alignSelf: 'center' }]}>Reset Filter</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={{ width: "40%", backgroundColor: blueText.color, height: 40, borderRadius: 50, justifyContent: "center" }}
-                        onPress={() => navigation.navigate('PatientDetails')}
+                        // onPress={() => navigation.navigate('PatientDetails')}
                     >
                         <Text style={[styles.smallText, { color: "white", alignSelf: 'center' }]}>Apply</Text>
                     </TouchableOpacity>

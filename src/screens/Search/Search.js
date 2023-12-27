@@ -1,14 +1,16 @@
 import { ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native'
 import React, { useState } from 'react'
-import { blackText,  colorTheme } from '../constant'
+import { blackText, colorTheme } from '../../constant'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import ArticleCard from '../components/ArticleCard'
+import ArticleCard from '../../components/ArticleCard'
 import LottieView from 'lottie-react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { useNavigation } from '@react-navigation/native'
 
 
 export default function Profile() {
+  const navigation = useNavigation()
   const [search, setSearch] = useState('')
   return (
     <ScrollView style={styles.container}>
@@ -30,19 +32,21 @@ export default function Profile() {
           </ImageBackground>
         </View> */}
         <View style={{ backgroundColor: "white", elevation: 3, borderRadius: 10, alignSelf: "center", width: "90%", alignItems: "center" }}>
-          <LottieView source={require("../assets/json/search.json")} autoPlay loop style={{ width: 360, height: 200, }} />
+          <LottieView source={require("../../assets/json/search.json")} autoPlay loop style={{ width: 360, height: 200, }} />
           <View style={styles.textInput}>
             <MaterialIcons name="search" color={colorTheme.primaryColor} size={25} />
             <TextInput
               placeholder='Search here..'
-              onChangeText={(text)=>setSearch(text)}
+              onChangeText={(text) => setSearch(text)}
               value={search}
               style={{ height: 48, width: "92%" }}
             />
           </View>
         </View>
         <View style={styles.category}>
-          <TouchableOpacity style={{ backgroundColor: "#FAE9E9", elevation: 3, width: 100, justifyContent: "center", alignItems: "center", borderRadius: 20 }}>
+          <TouchableOpacity
+            onPress={() => { navigation.navigate("SearchResult") }}
+            style={{ backgroundColor: "#FAE9E9", elevation: 3, width: 100, justifyContent: "center", alignItems: "center", borderRadius: 20 }}>
             <Ionicons name='person' size={25} color={"#E35F47"} />
             <Text style={[styles.bigText]}>Doctors</Text>
           </TouchableOpacity>
@@ -78,11 +82,12 @@ export default function Profile() {
         }}>
           <Text style={[styles.bigText, { color: "#6A788E", fontWeight: "600", textAlign: "left" }]}>New Investigation</Text>
         </View>
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
+        <View style={[{ width: "90%", }]}>
+          <ArticleCard />
+          <ArticleCard />
+          <ArticleCard />
+          <ArticleCard />
+        </View>
       </View>
     </ScrollView>
   )
@@ -112,7 +117,7 @@ const styles = StyleSheet.create({
     borderColor: "#d3d2d6",
     flexDirection: "row",
     alignItems: "center",
-    marginBottom:15
+    marginBottom: 15
   },
   category: {
     height: 88,

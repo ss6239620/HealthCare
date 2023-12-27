@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Home from '../screens/Home/Home'
 import Appointment from '../screens/AppointMents/Appointment'
 import Profile from '../screens/Profile/Profile'
-import Search from '../screens/Search'
+import Search from '../screens/Search/Search'
 import Chat from '../screens/Chat/Chat';
 import { colorTheme } from '../constant';
 

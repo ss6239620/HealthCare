@@ -1,23 +1,26 @@
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Alert, Image, Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
 import { colorTheme, blackText, blueText, grayText } from '../../constant'
 import Header from '../../components/Header'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import UnderLine from '../../components/UnderLine'
 import { useNavigation } from '@react-navigation/native'
+import Logout from './LogOut'
 
-function InfoCard({ iconName, title, isNavigate }) {
+function InfoCard({ iconName, title, isNavigate, navigateTo }) {
   const navigation = useNavigation()
   return (
     <>
-      <View style={{ flexDirection: "row", padding: 10 }}>
+      <Pressable
+        onPress={() => { isNavigate ? navigation.navigate(navigateTo) : null }}
+        style={{ flexDirection: "row", padding: 10 }}>
         <MaterialCommunityIcons name={iconName} color={colorTheme.primaryColor} size={30} />
         <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: "center", width: '90%', paddingHorizontal: 10 }}>
           <Text style={styles.bigText}>{title}</Text>
-          <MaterialIcons name={'arrow-forward-ios'} color={colorTheme.primaryColor} size={23} onPress={() => { isNavigate ? navigation.navigate('HelpCenter') :null }} />
+          <MaterialIcons name={'arrow-forward-ios'} color={colorTheme.primaryColor} size={23} onPress={() => { isNavigate ? navigation.navigate(navigateTo) : null }} />
         </View>
-      </View>
+      </Pressable>
       <UnderLine />
     </>
   )
@@ -26,35 +29,40 @@ function InfoCard({ iconName, title, isNavigate }) {
 const profileIcon = [
   {
     name: 'account',
-    title: 'Your Profile'
+    title: 'Your Profile',
+    screen: 'EditProfile'
   },
   {
     name: 'credit-card',
-    title: 'Payment Methods'
+    title: 'Payment Methods',
+    screen: 'PaymentMethod'
   },
   {
     name: 'heart-outline',
-    title: 'Favourite'
+    title: 'Favourite',
+    screen: 'Favorites'
   },
   {
     name: 'account',
-    title: 'Settings'
+    title: 'Settings',
+    screen: 'Settings'
   },
   {
     name: 'help',
-    title: 'Help Center'
+    title: 'Help Center',
+    screen: 'HelpCenter'
   },
   {
     name: 'lock',
-    title: 'Privacy Policy'
+    title: 'Privacy Policy',
+    screen: 'PrivacyPolicy'
   },
-  {
-    name: 'logout',
-    title: 'Log out'
-  },
+
 ]
 
+
 export default function Profile() {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.subContainer}>
@@ -63,15 +71,29 @@ export default function Profile() {
           <View>
             <Image source={require('../../assets/img/user.jpg')} resizeMode='contain' style={styles.image} />
             <View style={{ position: "absolute", bottom: 0, right: 0, backgroundColor: colorTheme.primaryColor, borderRadius: 40 }}>
-              <MaterialCommunityIcons name={'pencil-plus'} color={"white"} size={25} style={{ padding: 5 }} />
+              <MaterialCommunityIcons name={'pencil-plus'} color={"white"} size={25} style={{ padding: 5 }} onPress={() => { }} />
             </View>
           </View>
           <Text style={[styles.bigText, { marginTop: 10 }]}>Esther Howard</Text>
         </View>
         {profileIcon.map((_, index) => (
-          <InfoCard iconName={_.name} title={_.title} key={index} isNavigate />
+          <InfoCard iconName={_.name} title={_.title} key={index} isNavigate navigateTo={_.screen} />
         ))}
+        <Pressable
+          onPress={() => { setModalVisible(true) }}
+          style={{ flexDirection: "row", padding: 10 }}>
+          <MaterialCommunityIcons name={"logout"} color={colorTheme.primaryColor} size={30} />
+          <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: "center", width: '90%', paddingHorizontal: 10 }}>
+            <Text style={styles.bigText}>Logout</Text>
+            <MaterialIcons name={'arrow-forward-ios'} color={colorTheme.primaryColor} size={23} onPress={() => { setModalVisible(true) }} />
+          </View>
+        </Pressable>
       </ScrollView>
+      {
+        modalVisible ?
+          <Logout modalVisible={modalVisible} setModalVisible={setModalVisible} />
+          : null
+      }
     </View>
   )
 }
@@ -118,6 +140,41 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderWidth: 2,
     borderColor: colorTheme.primaryColor
+  },
+  modalView: {
+    // margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
 })
 

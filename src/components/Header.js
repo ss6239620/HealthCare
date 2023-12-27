@@ -2,29 +2,29 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { blackText, colorTheme } from '../constant'
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Header({ header, leftIconName, rightIconName, titleMargin, textColor, marginTop, children: Children,childrenStyle }) {
-    const navigation=useNavigation()
+export default function Header({ header, leftIconName, rightIconName, titleMargin, textColor, marginTop, children: Children, childrenStyle, isModal, setModalVisible }) {
+    const navigation = useNavigation()
     return (
-        <View style={{ flexDirection: "row", justifyContent: "space-between", height: 48, alignItems: 'center', marginTop: marginTop ? marginTop : 5, width: rightIconName ? "100%" : "73%", }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-between", height: 48, alignItems: 'center', marginTop: marginTop ? marginTop : 5, }}>
             {leftIconName
                 ?
-                <Pressable 
-                onPress={()=>{navigation.goBack()}}
-                style={{ width: 35, height: 35, backgroundColor: "white", justifyContent: "center", alignItems: "center", borderRadius: 50, borderWidth: 1, borderColor: colorTheme.borderColor }}>
-                    <Ionicons name={"chevron-back"} size={20} color={colorTheme.primaryColor} />
+                <Pressable
+                    onPress={() => { isModal ? setModalVisible(false) : navigation.goBack() }}
+                    style={{ width: 35, height: 35, backgroundColor: "white", justifyContent: "center", alignItems: "center", borderRadius: 50, borderWidth: 1, borderColor: colorTheme.borderColor }}>
+                    <Ionicons name={"arrow-back"} size={20} color={colorTheme.primaryColor} />
                 </Pressable>
                 :
                 null
             }
             {
                 header ?
-                    <Text style={{ fontSize: 17, fontWeight: "600", color: textColor ? textColor : blackText.color, textAlign: "center", marginRight: titleMargin }}>{header}</Text>
+                    <Text style={{ fontSize: 17, fontWeight: "600", color: textColor ? textColor : blackText.color, textAlign: "center", marginRight: titleMargin, flexGrow: 1 }}>{header}</Text>
                     :
-                    <View style={{...childrenStyle}}>
-                         <Children />
-                    </View>     
+                    <View style={{ ...childrenStyle }}>
+                        <Children />
+                    </View>
             }
             {rightIconName
                 ?

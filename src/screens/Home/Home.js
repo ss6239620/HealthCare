@@ -10,6 +10,10 @@ import LocationModal from '../../components/Modal/LocationModal'
 import FilterModal from '../../components/Modal/FilterModal'
 import NotificationModal from '../../components/Modal/NotificationModal'
 import Carousel from '../../components/Carousel'
+import Category from '../../components/Modal/CategoryModal'
+import TopDoctorModal from '../../components/Modal/TopDoctorModal'
+import TopHospitalModal from '../../components/Modal/TopHospitalModal'
+import HospitalProfileCard from '../../components/HospitalProfileCard'
 
 const data = [
   {
@@ -28,11 +32,10 @@ const data = [
 
 function Test(params) {
   return (
-    <View style={{ height: 110 }}>
-      <Text>Hello</Text>
-    </View>
+    <Text>Hello</Text>
   )
 }
+
 
 export default function Home({ navigation }) {
   const [search, setSearch] = useState('')
@@ -40,26 +43,49 @@ export default function Home({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [filterModal, setFilterModal] = useState(false)
   const [notificationModal, setNotificationModal] = useState(false)
+  const [categoryModalVisible, setcategoryModalVisible] = useState(false);
+  const [topDoctorModal, setTopDoctorModal] = useState(false);
+  const [topHosPitalModal, setTopHospitalModal] = useState(false);
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.subcontainer}>
-        {modalVisible
-          ?
-          <LocationModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
-          : null
-        }
-        {notificationModal
-          ?
-          <NotificationModal modalVisible={notificationModal} setModalVisible={setNotificationModal} />
-          : null
-        }
-        {
-          filterModal
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.subcontainer} stickyHeaderIndices={[8]}>
+        <>
+          {modalVisible
             ?
-            <FilterModal modalVisible={filterModal} setModalVisible={setFilterModal} />
+            <LocationModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
             : null
-        }
+          }
+          {notificationModal
+            ?
+            <NotificationModal modalVisible={notificationModal} setModalVisible={setNotificationModal} />
+            : null
+          }
+          {
+            filterModal
+              ?
+              <FilterModal modalVisible={filterModal} setModalVisible={setFilterModal} />
+              : null
+          }
+          {
+            categoryModalVisible
+              ?
+              <Category modalVisible={categoryModalVisible} setModalVisible={setcategoryModalVisible} />
+              : null
+          }
+          {
+            topDoctorModal
+              ?
+              <TopDoctorModal modalVisible={topDoctorModal} setModalVisible={setTopDoctorModal} />
+              : null
+          }
+          {
+            topHosPitalModal
+              ?
+              <TopHospitalModal modalVisible={topHosPitalModal} setModalVisible={setTopHospitalModal} />
+              : null
+          }
+        </>
         <View style={{ width: "90%", marginBottom: 10, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
           <View>
             <Text style={{ color: "gray" }}>Location</Text>
@@ -96,17 +122,19 @@ export default function Home({ navigation }) {
           </Pressable>
         </View>
         <View style={{ width: '90%', flexDirection: "row", justifyContent: 'space-between' }}>
-          <Text style={[styles.grayText, { marginBottom: 8, }]}>Nearest Visit</Text>
-          <Text style={[{ color: colorTheme.primaryColor, fontSize: 15 }]}>See All</Text>
+          <Text style={[styles.grayText, { marginBottom: 8, }]}>Top Specialist</Text>
+          <Text
+            onPress={() => { setTopDoctorModal(true) }}
+            style={[{ color: colorTheme.primaryColor, fontSize: 15 }]}>See All</Text>
         </View>
         <Carousel data={data}>
-          <DoctorCard />
+          <DoctorCard isNavigate/>
         </Carousel>
 
         <View style={{}}>
           <View style={{ width: '90%', flexDirection: "row", justifyContent: 'space-between', padding: 10 }}>
             <Text style={[styles.grayText, { marginBottom: 8, }]}>Doctor Speciality</Text>
-            <Text style={[{ color: colorTheme.primaryColor, fontSize: 15 }]}>See All</Text>
+            <Text onPress={() => { setcategoryModalVisible(true) }} style={[{ color: colorTheme.primaryColor, fontSize: 15 }]}>See All</Text>
           </View>
           <View style={{ flexDirection: 'row', padding: 5, justifyContent: 'space-around' }}>
             <View style={{ backgroundColor: colorTheme.iconBackGroundColor, padding: 15, borderRadius: 50 }}>
@@ -123,27 +151,37 @@ export default function Home({ navigation }) {
             </View>
           </View>
         </View>
-        <View style={styles.post}>
-          <TouchableOpacity
-            style={{ backgroundColor: isPost ? colorTheme.primaryColor : 'white', width: 120, height: 40, borderRadius: 50, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: colorTheme.primaryColor }}
-            onPress={() => { setIsPost(true) }}
-          >
-            <Text style={{ color: isPost ? "white" : 'black' }}>Posts</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{ backgroundColor: isPost ? "white" : colorTheme.primaryColor, width: 120, height: 40, borderRadius: 50, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: colorTheme.primaryColor }}
-            onPress={() => { setIsPost(false) }}
-          >
-            <Text style={{ color: isPost ? "black" : 'white' }}>Articles</Text>
-          </TouchableOpacity>
+        <View>
+          <View style={{ width: '90%', flexDirection: "row", justifyContent: 'space-between', padding: 10 }}>
+            <Text style={[styles.grayText, { marginBottom: 8, }]}>Top Hospitals</Text>
+            <Text onPress={() => { setTopHospitalModal(true) }} style={[{ color: colorTheme.primaryColor, fontSize: 15 }]}>See All</Text>
+          </View>
         </View>
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
-      </View>
-    </ScrollView >
+        <Carousel data={data}>
+          <HospitalProfileCard isNavigate/>
+        </Carousel>
+        <View style={[{ width: "90%", }]}>
+          <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+            <TouchableOpacity
+              style={{ backgroundColor: isPost ? colorTheme.primaryColor : 'white', width: 120, height: 40, borderRadius: 50, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: colorTheme.primaryColor }}
+              onPress={() => { setIsPost(true) }}
+            >
+              <Text style={{ color: isPost ? "white" : 'black' }}>Posts</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ backgroundColor: isPost ? "white" : colorTheme.primaryColor, width: 120, height: 40, borderRadius: 50, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: colorTheme.primaryColor }}
+              onPress={() => { setIsPost(false) }}
+            >
+              <Text style={{ color: isPost ? "black" : 'white' }}>Articles</Text>
+            </TouchableOpacity>
+          </View>
+          <ArticleCard />
+          <ArticleCard />
+          <ArticleCard />
+          <ArticleCard />
+        </View>
+      </ScrollView >
+    </View>
   )
 }
 

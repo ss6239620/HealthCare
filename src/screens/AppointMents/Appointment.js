@@ -35,17 +35,18 @@ export default function Appointment({ navigation }) {
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
-        // style={{width:"90%",alignSelf:'center'}}
+        style={{ width: "98%", alignSelf: 'center' }}
         renderTabBar={props => (
           <TabBar
             {...props}
-            renderLabel={({ route, color }) => (
-              <Text style={[styles.bigText, { color: "black", margin: 8, fontSize: 14, }]}>
+            renderLabel={({ route, focused }) => (
+              <Text style={[styles.bigText, { color: focused ? colorTheme.primaryColor : colorTheme.borderColor, margin: 8, fontSize: 14, }]}>
                 {route.title}
               </Text>
             )}
             style={{ backgroundColor: 'white' }}
-            indicatorStyle={{ backgroundColor: colorTheme.primaryColor }}
+            indicatorStyle={{ borderWidth: 2, borderColor: colorTheme.primaryColor, borderTopLeftRadius: 40, borderTopRightRadius: 40 }}
+            pressColor={colorTheme.borderColor}
           />
         )}
       />

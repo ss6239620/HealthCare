@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View,Image } from 'react-native'
 import React from 'react'
 
-export default function ArticleCard() {
+export default function ArticleCard({data}) {
   return (
     <View style={styles.card}>
     <View style={{ flex: 1, flexDirection: 'row', margin: 15 }}>
@@ -9,7 +9,7 @@ export default function ArticleCard() {
       <View
         style={{ flex: 1, flexDirection: 'column' }}
       >
-        <Text style={[styles.boldText,{ flexShrink: 1,fontSize:15 }]}>Cardiology and workout?</Text>
+        <Text style={[styles.boldText,{ flexShrink: 1,fontSize:15 }]}>Cardiology and workout?{data}</Text>
         <Text style={[styles.grayText,{ flexShrink: 1,fontSize:12 }]}>
         Although approximately 86% of practicing cardiologists surveyed see patients who are workout ever...
         </Text>
@@ -46,11 +46,9 @@ const styles = StyleSheet.create({
       alignItems: 'center'
     },
     card: {
-      width: "90%",
-      height: 112,
       backgroundColor: 'white',
       borderRadius:10,
-      marginBottom:10,
+      marginVertical:10,
       elevation:3
     },
     image: {

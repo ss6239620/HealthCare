@@ -1,11 +1,12 @@
 import { StyleSheet, View, Dimensions, FlatList, Pressable } from 'react-native';
-import React, { useState, useEffect, useRef,useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { colorTheme } from '../constant';
+import DoctorCard from './DoctorCard';
 
 const DOT_SIZE = 8;
 const { width } = Dimensions.get('window');
 
-export default function Carousel({ data, children }) {
+export default function Carousel({ data, children: Children, childrenStyle }) {
   const [indexDot, setIndexDot] = useState(0);
   const flatListRef = useRef(null);
 
@@ -48,7 +49,7 @@ export default function Carousel({ data, children }) {
 
   const renderItem = ({ item }) => (
     <Pressable style={styles.wrapItem}>
-      <View style={{ ...styles.item, width: '90%' }}>{children}</View>
+      <View style={{ ...styles.item, width: '100%' }}>{Children}</View>
     </Pressable>
   );
 
@@ -64,14 +65,13 @@ export default function Carousel({ data, children }) {
         renderItem={renderItem}
         scrollEventThrottle={200}
         onMomentumScrollEnd={onChangeDot}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) => `carousel_${index}`}
         initialScrollIndex={indexDot}
       />
       {renderPagination}
     </>
   );
 }
-
 
 const styles = StyleSheet.create({
   wrapPagination: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 3,
   },
   wrapItem: {
-    width:width,
+    width: width,
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',

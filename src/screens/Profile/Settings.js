@@ -37,7 +37,7 @@ const Settings = () => {
 
             {/* Footer */}
             <View style={styles.footer}>
-                <Text style={styles.footerText}>Footer</Text>
+                {/* <Text style={styles.footerText}>Footer</Text> */}
             </View>
         </View>
     );

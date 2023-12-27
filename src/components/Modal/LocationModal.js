@@ -1,12 +1,11 @@
-import { Alert, Modal, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Modal, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
-import { blackText, blueText, color, colorTheme, grayText } from '../../constant'
-import Header from '../Header'
+import { blackText, blueText, colorTheme, grayText } from '../../constant'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import UnderLine from '../UnderLine'
 import LocationCard from '../LocationCard'
 
-const App = ({ modalVisible, setModalVisible }) => {
+const LocationModal = ({ modalVisible, setModalVisible }) => {
   const [search, setSearch] = useState('')
 
   return (
@@ -15,7 +14,6 @@ const App = ({ modalVisible, setModalVisible }) => {
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => {
-        Alert.alert('Location Closed');
         setModalVisible(!modalVisible);
       }}>
       <View style={styles.container}>
@@ -93,4 +91,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default App;
+export default LocationModal;

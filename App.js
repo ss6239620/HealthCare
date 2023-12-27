@@ -23,6 +23,9 @@ import Settings from './src/screens/Profile/Settings'
 import PasswordManager from './src/screens/Profile/PasswordManager'
 import PrivacyPolicy from './src/screens/Profile/PrivacyPolicy'
 import HelpCenter from './src/screens/Profile/HelpCenter'
+import SearchResult from './src/screens/Search/SearchResult'
+import Hospital from './src/screens/Hospital'
+import Favorites from './src/screens/Profile/Favorites'
 
 const Stack = createNativeStackNavigator()
 
@@ -37,6 +40,7 @@ export default function App() {
         <Stack.Screen name='VerifyAccount' component={VerifyAccount} options={{ headerShown: false }} />
         <Stack.Screen name='BottomTab' component={BottomTab} options={{ headerShown: false }} />
         <Stack.Screen name='DoctorDetail' component={DoctorDetail} options={{ headerShown: false }} />
+        <Stack.Screen name='Hospital' component={Hospital} options={{ headerShown: false }} />
         <Stack.Screen name='BookAppointment' component={BookAppointment} options={{ headerShown: false }} />
         <Stack.Screen name='SelectAppointmentPackage' component={SelectAppointmentPackage} options={{ headerShown: false }} />
         <Stack.Screen name='PatientDetails' component={PatientDetails} options={{ headerShown: false }} />
@@ -51,6 +55,8 @@ export default function App() {
         <Stack.Screen name='PasswordManager' component={PasswordManager} options={{ headerShown: false }} />
         <Stack.Screen name='PrivacyPolicy' component={PrivacyPolicy} options={{ headerShown: false }} />
         <Stack.Screen name='HelpCenter' component={HelpCenter} options={{ headerShown: false }} />
+        <Stack.Screen name='SearchResult' component={SearchResult} options={{ headerShown: false }} />
+        <Stack.Screen name='Favorites' component={Favorites} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   )
