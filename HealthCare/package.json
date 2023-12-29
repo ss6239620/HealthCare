@@ -7,13 +7,16 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
+    "adb":"adb reverse tcp:9000 tcp:9000",
     "test": "jest"
   },
   "dependencies": {
     "@ptomasroos/react-native-multi-slider": "^2.2.2",
+    "@react-native-async-storage/async-storage": "^1.21.0",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
+    "axios": "^1.6.3",
     "lottie-react-native": "^6.4.1",
     "react": "18.2.0",
     "react-native": "0.73.1",
@@ -24,7 +27,11 @@
     "react-native-screens": "^3.29.0",
     "react-native-tab-view": "^3.5.2",
     "react-native-vector-icons": "^10.0.3",
-    "react-native-webview": "^13.6.3"
+    "react-native-webview": "^13.6.3",
+    "react-redux": "^9.0.4",
+    "redux": "^5.0.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^3.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

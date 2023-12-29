@@ -35,4 +35,6 @@ const blueText = {
     fontWeight: "600",
 }
 
-export {  blackText, grayText, blueText,colorTheme }
+const API_URL='http://localhost:9000/api'
+
+export {  blackText, grayText, blueText,colorTheme,API_URL }

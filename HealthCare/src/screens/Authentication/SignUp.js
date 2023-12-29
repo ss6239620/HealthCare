@@ -3,14 +3,45 @@ import React, { useState } from 'react'
 import { colorTheme, blackText, blueText, grayText } from '../../constant'
 import LottieView from 'lottie-react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useDispatch, useSelector } from 'react-redux'
+import { userServices } from '../../services/userAuth'
+import { Signup } from '../../store/actions/auth'
 
-export default function Template({navigation}) {
+export default function Template({ navigation }) {
     const [email, setemail] = useState('')
+    const [username, setUsename] = useState('')
+    const [password, setPassword] = useState('')
+
+    const auth = useSelector((state) => state.auth)
+    const { errorMessageSignUp } = auth
+    const dispatch = useDispatch()
+
+    async function handleClick(params) {
+        dispatch(Signup(username, email, password))
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.subContainer}>
-                <LottieView source={require("../../assets/json/signup.json")} autoPlay loop style={{ height: 200, }} />
-                <Text style={[styles.smallText, { textAlign: 'center', marginTop: 50, fontSize: 16, fontWeight: '300', color: 'black', marginBottom: 15 }]}>Login to your account</Text>
+                <TouchableOpacity
+                    onPress={() => { navigation.navigate("Login") }}
+                    style={{ width: 40, height: 40, backgroundColor: colorTheme.primaryColor, borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
+                    <MaterialCommunityIcons size={25} name={"arrow-left"} color={"white"} style={{ margin: 2 }} />
+                </TouchableOpacity>
+                <LottieView source={require("../../assets/json/signup.json")} autoPlay loop style={{ height: 100, }} />
+                <Text style={[styles.smallText, { textAlign: 'center', marginTop: 50, fontSize: 16, fontWeight: '300', color: 'black', marginBottom: 25 }]}>Create your account</Text>
+                <View style={{ flexDirection: "row", backgroundColor: "white", borderWidth: 1, borderColor: colorTheme.borderColor, borderRadius: 10, marginBottom: 10 }}>
+                    <View
+                        style={{ backgroundColor: colorTheme.primaryColor, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
+                        <MaterialCommunityIcons size={25} name={"account"} color={"white"} style={{ margin: 10 }} />
+                    </View>
+                    <TextInput
+                        placeholder='Username'
+                        onChangeText={(text) => setUsename(text)}
+                        value={username}
+                        style={{ height: 48, width: "85%" }}
+                    />
+                </View>
                 <View style={{ flexDirection: "row", backgroundColor: "white", borderWidth: 1, borderColor: colorTheme.borderColor, borderRadius: 10, marginBottom: 10 }}>
                     <View
                         style={{ backgroundColor: colorTheme.primaryColor, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
@@ -31,22 +62,37 @@ export default function Template({navigation}) {
                     <TextInput
                         placeholder='Password'
                         secureTextEntry
+                        onChangeText={(text) => setPassword(text)}
+                        value={password}
+                        style={{ height: 48, width: "85%" }}
+                    />
+                </View>
+                <View style={{ flexDirection: "row", backgroundColor: "white", borderWidth: 1, borderColor: colorTheme.borderColor, borderRadius: 10, marginBottom: 5 }}>
+                    <View
+                        style={{ backgroundColor: colorTheme.primaryColor, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
+                        <MaterialCommunityIcons size={25} name={"lock"} color={"white"} style={{ margin: 10 }} />
+                    </View>
+                    <TextInput
+                        secureTextEntry
+                        placeholder='Confirm Password'
                         onChangeText={(text) => setemail(text)}
                         value={email}
                         style={{ height: 48, width: "85%" }}
                     />
                 </View>
-                <Text style={[styles.smallText, { color: colorTheme.primaryColor, textAlign: 'right', marginBottom: 25 }]}>Forgot Password?</Text>
+                {errorMessageSignUp &&
+                    <Text style={[styles.smallText, { color: 'red', textAlign: 'center', marginBottom: 10 }]}>{errorMessageSignUp}</Text>
+                }
                 <TouchableOpacity
-                    style={{ backgroundColor: colorTheme.primaryColor, borderRadius: 10, justifyContent: 'center', alignItems: "center" }}
-                    onPress={()=>navigation.navigate('VerifyAccount')}
+                    onPress={() => { handleClick() }}
+                    style={{ backgroundColor: colorTheme.primaryColor, borderRadius: 10, justifyContent: 'center', alignItems: "center", marginTop: 30 }}
                 >
-                    <Text style={[styles.smallText, { color: "white", margin: 14 }]}>Login</Text>
+                    <Text style={[styles.smallText, { color: "white", margin: 14 }]}>Register</Text>
                 </TouchableOpacity>
                 <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 30 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
                         <View style={{ borderWidth: 1, borderColor: colorTheme.primaryColor, height: 2, width: 50, }} />
-                        <Text style={[styles.smallText, { marginLeft: 10, marginRight: 10 }]}>Or Login With</Text>
+                        <Text style={[styles.smallText, { marginLeft: 10, marginRight: 10 }]}>Or Register With</Text>
                         <View style={{ borderWidth: 1, borderColor: colorTheme.primaryColor, height: 2, width: 50, }} />
                     </View>
                 </View>
@@ -61,9 +107,6 @@ export default function Template({navigation}) {
                         <Image source={require('../../assets/img/twitter.png')} resizeMode='contain' style={styles.image} />
                     </View>
                 </View>
-                <Text style={[styles.smallText,{textAlign:"center",marginTop:10,}]}>
-                    Don't have an account? <Text onPress={()=>{navigation.navigate('SignUp')}} style={[styles.smallText,{color:colorTheme.primaryColor}]}>Sign Up</Text>
-                </Text>
             </View>
         </View>
     )
