@@ -1,15 +1,16 @@
 const mongoose = require('mongoose')
+const { ROLES } = require('../constant/constant')
 
 const userSchema = new mongoose.Schema({
-    username: {
+    userName: {
         type: String,
         unique: true,
         required: true,
         trim: true
     },
-    fullname: {
+    fullName: {
         type: String,
-        required: true,
+        default: null,
     },
     email: {
         type: String,
@@ -20,6 +21,21 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    phoneNumber: {
+        type: String
+    },
+    doctor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "doctors",
+        default: null
+    },
+    role: {
+        type: String,
+        default: ROLES.PATIENT,
+        enum: [ROLES.ADMIN, ROLES.DOCTOR, ROLES.PATIENT]
+    },
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Date },
     createdAt: {
         type: Date,
         default: Date.now()

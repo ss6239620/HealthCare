@@ -25,6 +25,8 @@ mongoose.connect(
 
 
 app.use('/api/user', require('./routes/user'))
+app.use('/api/doctor', require('./routes/doctor'))
+app.use('/api/appointment', require('./routes/appointment'))
 
 
 

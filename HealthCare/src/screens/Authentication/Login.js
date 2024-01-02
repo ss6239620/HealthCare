@@ -1,11 +1,10 @@
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { colorTheme, blackText, blueText, grayText } from '../../constant'
 import LottieView from 'lottie-react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../store/actions/auth'
-import { getAuthAsyncStorage } from '../../services/getAuthAsyncStorage'
 
 export default function Template({ navigation }) {
     const [username, setUsername] = useState('')
@@ -15,18 +14,13 @@ export default function Template({ navigation }) {
     const dispatch = useDispatch();
 
     async function handleClick(params) {
-        try {
-            await dispatch(login(username, password))
-            navigation.navigate('VerifyAccount')
-        } catch (err) {
-            console.log(err);
-        }
+        dispatch(login(username, password))
     }
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.subContainer}>
-                <LottieView source={require("../../assets/json/signup.json")} autoPlay loop style={{ height: 200, }} />
+                <LottieView source={require("../../assets/json/log_in.json")} autoPlay loop style={{ height: 200, }} />
                 <Text style={[styles.smallText, { textAlign: 'center', marginTop: 50, fontSize: 16, fontWeight: '300', color: 'black', marginBottom: 15 }]}>Login to your account</Text>
                 <View style={{ flexDirection: "row", backgroundColor: "white", borderWidth: 1, borderColor: colorTheme.borderColor, borderRadius: 10, marginBottom: 10 }}>
                     <View
@@ -53,7 +47,9 @@ export default function Template({ navigation }) {
                         style={{ height: 48, width: "85%" }}
                     />
                 </View>
-                <Text style={[styles.smallText, { color: colorTheme.primaryColor, textAlign: 'right', marginBottom: 10 }]}>Forgot Password?</Text>
+                <Text
+                onPress={()=>{navigation.navigate('ForgetPassword')}}
+                 style={[styles.smallText, { color: colorTheme.primaryColor, textAlign: 'right', marginBottom: 10 }]}>Forgot Password?</Text>
                 {errorMessageLogin &&
                     <Text style={[styles.smallText, { color: 'red', textAlign: 'center', marginBottom: 10 }]}>{errorMessageLogin}</Text>
                 }
@@ -85,14 +81,15 @@ export default function Template({ navigation }) {
                     Don't have an account? <Text onPress={() => { navigation.navigate('SignUp') }} style={[styles.smallText, { color: colorTheme.primaryColor }]}>Sign Up</Text>
                 </Text>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colorTheme.appBackGroundColor
+        backgroundColor: colorTheme.appBackGroundColor,
+        paddingTop:20
     },
     subContainer: {
         width: "90%",

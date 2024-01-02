@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { colorTheme, blackText, blueText, grayText } from '../../constant'
 import LottieView from 'lottie-react-native'
@@ -21,14 +21,14 @@ export default function Template({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.subContainer}>
                 <TouchableOpacity
                     onPress={() => { navigation.navigate("Login") }}
-                    style={{ width: 40, height: 40, backgroundColor: colorTheme.primaryColor, borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
+                    style={{ width: 40, height: 40, backgroundColor: colorTheme.primaryColor, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
                     <MaterialCommunityIcons size={25} name={"arrow-left"} color={"white"} style={{ margin: 2 }} />
                 </TouchableOpacity>
-                <LottieView source={require("../../assets/json/signup.json")} autoPlay loop style={{ height: 100, }} />
+                <LottieView source={require("../../assets/json/signup.json")} autoPlay loop style={{ height: 200, }} />
                 <Text style={[styles.smallText, { textAlign: 'center', marginTop: 50, fontSize: 16, fontWeight: '300', color: 'black', marginBottom: 25 }]}>Create your account</Text>
                 <View style={{ flexDirection: "row", backgroundColor: "white", borderWidth: 1, borderColor: colorTheme.borderColor, borderRadius: 10, marginBottom: 10 }}>
                     <View
@@ -108,19 +108,20 @@ export default function Template({ navigation }) {
                     </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colorTheme.appBackGroundColor
+        backgroundColor: colorTheme.appBackGroundColor,
     },
     subContainer: {
-        width: "90%",
+        // width: "90%",
         height: "auto",
         alignSelf: "center",
+        padding:20
         // backgroundColor:"red"
     },
     bigText: {

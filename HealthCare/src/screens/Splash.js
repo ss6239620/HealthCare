@@ -1,6 +1,7 @@
 import { ImageBackground, StyleSheet, Text, View, Image } from 'react-native'
 import React,{useEffect} from 'react'
 import LottieView from 'lottie-react-native'
+import { colorTheme } from '../constant';
 
 export default function App({navigation}) {
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function App({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor:"#4264ad",
+    backgroundColor:colorTheme.appBackGroundColor,
     justifyContent: 'center',
     alignItems: 'center'
   },

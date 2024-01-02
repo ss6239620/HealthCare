@@ -1,8 +1,11 @@
+import { navigate } from "../../services/navRef";
 import { userServices } from "../../services/userAuth";
 import {
     AUTH_ERR_LOG_IN,
     AUTH_ERR_LOG_OUT,
     AUTH_ERR_SIGN_UP,
+    AUTH_FORGOT_PASSWORD,
+    AUTH_FORGOT_PASSWORD_ERROR,
     AUTH_LOGGED_IN,
     AUTH_LOGGING_IN,
     AUTH_LOGGING_OUT,
@@ -32,8 +35,9 @@ export const login = (username, password) => (dispatch) => {
     dispatch(loggingIn(true));
     userServices.Login(username, password).then(async (res) => {
         await dispatch(loggedIn(res.data));
+        await navigate('BottomTab')
     }).catch((err) => {
-        dispatch(errorLogIn('Wrong username or password'))
+        dispatch(errorLogIn(err.response.data.error))
     }).finally(() => {
         dispatch(loggingIn(false));
     })
@@ -58,6 +62,7 @@ export const logout = () => async (dispatch, getState) => {
     await userServices.Logout(getState).then((res) => {
         dispatch(loggedOut())
     }).catch((err) => {
+        // console.log(err.response);
         dispatch(errorLogOut('Error logging out'));
     }).finally(() => {
         dispatch(loggingOut(false))
@@ -74,7 +79,7 @@ export const signedUp = (data) => ({
     payload: data
 })
 
-export const errorSignUp = (errormessage) =>({
+export const errorSignUp = (errormessage) => ({
     type: AUTH_ERR_SIGN_UP,
     payload: errormessage
 })
@@ -83,10 +88,37 @@ export const Signup = (username, email, password) => (dispatch) => {
     dispatch(signingUp(true))
     userServices.Signup(username, email, password).then(async (res) => {
         await dispatch(signedUp(res.data));
+        navigate('BottomTab')
     }).catch((err) => {
-        console.log(err.data);
-        dispatch(errorSignUp('Something went wrong'))
+        dispatch(errorSignUp(err.response.data.error))
     }).finally(() => {
         dispatch(loggingIn(false));
+    })
+}
+
+export const errorForgotPassword = (errormessage) => ({
+    type: AUTH_FORGOT_PASSWORD_ERROR,
+    payload: errormessage
+})
+
+export const Forgot_Password = (data) => ({
+    type: AUTH_FORGOT_PASSWORD,
+    payload: data
+})
+
+export const ForgotPassword = (email) => (dispatch) => {
+    userServices.ForgotPassword(email).then(async (res) => {
+        dispatch(Forgot_Password(email))
+        navigate('VerifyAccount')
+    }).catch((err) => {
+        dispatch(errorForgotPassword(err.response.data.error))
+    })
+}
+
+export const Verify = (email, token) => (dispatch) => {
+    userServices.VerifyToken(email, token).then(async (res) => {
+        navigate('BottomTab')
+    }).catch((err) => {
+        dispatch(errorForgotPassword(err.response.data.error))
     })
 }

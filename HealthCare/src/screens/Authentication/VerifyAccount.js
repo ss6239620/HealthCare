@@ -9,6 +9,8 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell
 } from 'react-native-confirmation-code-field'
+import { useDispatch, useSelector } from 'react-redux'
+import { Verify } from '../../store/actions/auth'
 
 const CELL_SIZE = 70;
 const CELL_BORDER_RADIUS = 8;
@@ -33,13 +35,22 @@ const animateCell = ({ hasValue, index, isFocused }) => {
   ]).start();
 };
 
-export default function Template({ navigation }) {
+export default function Verification({ navigation }) {
+
+  const dispatch = useDispatch()
+  const auth = useSelector((state) => state.auth)
+  const { emailVerify,errorMessage } = auth
+
   const [value, setValue] = useState('')
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue
   });
+
+  const handleVerify = () => {
+    dispatch(Verify(emailVerify, value))
+  }
 
   const renderCell = ({ index, symbol, isFocused }) => {
     const hasValue = Boolean(symbol);
@@ -82,22 +93,25 @@ export default function Template({ navigation }) {
 
   return (
     <KeyboardAvoidingView
-    style={styles.container}
-    behavior={(Platform.OS === 'ios') ? 'padding' : null}
-    enabled
-    keyboardVerticalOffset={Platform.select({ ios: 80, android: 500 })}>
+      style={styles.container}
+      behavior={(Platform.OS === 'ios') ? 'padding' : null}
+      enabled
+      keyboardVerticalOffset={Platform.select({ ios: 80, android: 500 })}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.subContainer}>
         <TouchableOpacity
           onPress={() => { navigation.navigate("SignUp") }}
-          style={{ width: 40, height: 40, backgroundColor: colorTheme.primaryColor, borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginVertical: 40 }}>
+          style={{ width: 40, height: 40, backgroundColor: colorTheme.primaryColor, borderRadius: 10, justifyContent: 'center', alignItems: 'center', }}>
           <MaterialCommunityIcons size={25} name={"arrow-left"} color={"white"} style={{ margin: 2 }} />
         </TouchableOpacity>
         <Text style={[{ fontWeight: 'bold', textAlign: 'center', marginVertical: 20, fontSize: 20, color: colorTheme.primaryColor }]}>Verify Account</Text>
-        <LottieView source={require("../../assets/json/signup.json")} autoPlay loop style={{ height: 150, }} />
+        <LottieView source={require("../../assets/json/success.json")} autoPlay loop style={{ height: 200, }} />
         <Text style={{ textAlign: 'center', marginVertical: 25 }}>
           Please enter the verification number
           we send to your email
         </Text>
+        {errorMessage &&
+          <Text style={[styles.smallText, { color: 'red', textAlign: 'center', marginBottom: 10 }]}>{errorMessage}</Text>
+        }
         <View>
           <CodeField
             ref={ref}
@@ -110,13 +124,13 @@ export default function Template({ navigation }) {
             textContentType="oneTimeCode"
             renderCell={renderCell}
           />
-          <Text style={{textAlign:'left',marginTop:10}}>Don't receive a code?<Text style={[{color:colorTheme.primaryColor,fontSize:15,fontWeight:'bold'}]}> Resend</Text></Text>
+          <Text style={{ textAlign: 'left', marginTop: 10 }}>Don't receive a code?<Text style={[{ color: colorTheme.primaryColor, fontSize: 15, fontWeight: 'bold' }]}> Resend</Text></Text>
         </View>
         <TouchableOpacity
-          style={{ backgroundColor: colorTheme.primaryColor, borderRadius: 10, justifyContent: 'center', alignItems: "center",marginVertical:50}}
-          onPress={() => navigation.navigate('BottomTab')}
+          style={{ backgroundColor: colorTheme.primaryColor, borderRadius: 10, justifyContent: 'center', alignItems: "center", marginVertical: 50 }}
+          onPress={handleVerify}
         >
-          <Text style={[styles.smallText, { color: "white", margin: 14 }]}>Login</Text>
+          <Text style={[styles.smallText, { color: "white", margin: 14 }]}>Verify</Text>
         </TouchableOpacity>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -126,12 +140,14 @@ export default function Template({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colorTheme.appBackGroundColor
+    backgroundColor: colorTheme.appBackGroundColor,
+
   },
   subContainer: {
     width: "90%",
     height: "auto",
     alignSelf: "center",
+    paddingTop: 20
     // backgroundColor:"red"
   },
   bigText: {

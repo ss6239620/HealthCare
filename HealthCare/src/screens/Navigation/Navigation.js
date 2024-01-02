@@ -24,6 +24,7 @@ import HelpCenter from '../Profile/HelpCenter'
 import SearchResult from '../Search/SearchResult'
 import Hospital from '../Hospital'
 import Favorites from '../Profile/Favorites'
+import ForgetPassword from '../Authentication/ForgetPassword'
 
 const Stack = createNativeStackNavigator()
 
@@ -34,6 +35,7 @@ export default function App() {
         <Stack.Screen name='GetStarted' component={GetStarted} options={{ headerShown: false }} />
         <Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }} />
         <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name='ForgetPassword' component={ForgetPassword} options={{ headerShown: false }} />
         <Stack.Screen name='VerifyAccount' component={VerifyAccount} options={{ headerShown: false }} />
         <Stack.Screen name='BottomTab' component={BottomTab} options={{ headerShown: false }} />
         <Stack.Screen name='DoctorDetail' component={DoctorDetail} options={{ headerShown: false }} />

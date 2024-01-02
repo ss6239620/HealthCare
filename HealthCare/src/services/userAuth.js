@@ -6,7 +6,7 @@ import { resetAuthAsyncStorage, setAuthAsyncStorage } from "./getAuthAsyncStorag
 function Login(username, password) {
     return new Promise((resolve, reject) => {
         axios.post(`${API_URL}/user/login`, {
-            username: username,
+            userName: username,
             password: password,
         }).then(async (response) => {
             try {
@@ -38,10 +38,9 @@ async function Signup(username, email, password) {
     // console.log(username);
     return new Promise((resolve, reject) => {
         axios.post(`${API_URL}/user/register`, {
-            username: username,
+            userName: username,
             email: email,
             password: password,
-            fullname: "tester thakur"
         }).then(async (res) => {
             try {
                 console.log(res);
@@ -51,11 +50,44 @@ async function Signup(username, email, password) {
             }
         }).catch((err) => {
             reject(err)
-            // console.log(err);
+            console.log(err);
+        })
+    })
+}
+
+async function ForgotPassword(email) {
+    return new Promise((resolve, reject) => {
+        axios.post(`${API_URL}/user/forgotPassword`, {
+            email: email
+        }).then(async (res) => {
+            try {
+                resolve(res)
+            } catch (error) {
+                reject(error)
+            }
+        }).catch((err) => {
+            reject(err)
+        })
+    })
+}
+
+async function VerifyToken(email, token) {
+    return new Promise((resolve, reject) => {
+        axios.post(`${API_URL}/user/verify`, {
+            email: email,
+            userToken: token
+        }).then(async (res) => {
+            try {
+                resolve(res)
+            } catch (error) {
+                reject(error)
+            }
+        }).catch((err) => {
+            reject(err)
         })
     })
 }
 
 export const userServices = {
-    Logout, Login, Signup
+    Logout, Login, Signup, ForgotPassword,VerifyToken
 }
