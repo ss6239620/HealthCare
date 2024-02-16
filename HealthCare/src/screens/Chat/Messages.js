@@ -1,8 +1,9 @@
 import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
-import { blueText, blackText,  grayText, colorTheme } from '../../constant'
+import React, { useState, useEffect, useRef } from 'react'
+import { blueText, blackText, grayText, colorTheme } from '../../constant'
 import Header from '../../components/Header'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import SocketIoClient from 'socket.io-client'
 
 const userData = [
     {
@@ -40,7 +41,7 @@ const userData = [
         name: "Sharvesh Singh",
         message: "Lorem ipsum dolor, sit amet consectetur adipisicingsit amet consectetur",
         time: "08:07"
-    },    {
+    }, {
         id: 1,
         name: "Carla Schoen",
         message: "Lorem ipsum dolor, sit amet consectetur adipisicingsit amet consectetur",
@@ -53,6 +54,8 @@ const userData = [
         time: "08:07"
     },
 ]
+
+const test= ['hhsh','shhshsh',"sshhs"]
 
 function HeaderComponent(params) {
     return (
@@ -75,14 +78,14 @@ function MessageBox({ data, isUser }) {
                 <View style={{ backgroundColor: isUser ? colorTheme.primaryColor : "white", elevation: 2, marginBottom: 2, borderRadius: 10, flexWrap: 'wrap' }}>
                     <View style={{ margin: 10 }}>
                         <Text style={{ color: isUser ? "white" : "black" }}>
-                            {data.message}
+                            {data}
                         </Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: "space-between", alignItems: "center", marginTop: 5 }}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <Image source={require('../../assets/img/health.jpg')} resizeMode='contain' style={[styles.image, { width: 25, height: 25, marginRight: 5 }]} />
-                        <Text>{data.name}</Text>
+                        <Text>{data}</Text>
                     </View>
                     <Text>{data.time} Pm</Text>
                 </View>
@@ -91,9 +94,32 @@ function MessageBox({ data, isUser }) {
     )
 }
 
+
 export default function Message() {
-    const [search, setSearch] = useState('')
-    const [user, setUser] = useState(false)
+    const [input, setInput] = useState('')
+    const [message, setMessage] = useState([])
+    const socket = useRef()
+
+    useEffect(() => {
+        socket.current = SocketIoClient('https://healthcare-3o61.onrender.com/')
+        socket.current.on('connect', () => {
+            console.log('connected to server');
+        })
+        socket.current.on('disconnect', () => {
+            console.log('Disconnected from server');
+        })
+        socket.current.on('chat-message', (msg) => {
+            setMessage((prevMessage)=>[
+                ...prevMessage,
+                msg
+            ])
+        })
+    }, [])
+
+    const sendMessage = () => {
+        socket.current.emit('chat-message', input)
+        setInput('')
+    }
     return (
         <View style={styles.container}>
             <ScrollView style={styles.subContainer}>
@@ -106,17 +132,16 @@ export default function Message() {
                 borderTopRightRadius: 40,
                 elevation: 1,
                 backgroundColor: 'white',
+                paddingBottom: 60,
+                paddingTop: 15
             }}>
                 <ScrollView>
                     <Text style={[styles.bigText, { margin: 10, textAlign: "center", color: grayText.color, }]}>Today</Text>
-                    {userData.map((data, index) => {
+                    {
+                    message.map((data, index) => {
                         return (
                             <View key={index}>
-                                {data.id === 0 ?
-                                    <MessageBox data={data} isUser />
-                                    :
-                                    <MessageBox data={data} />
-                                }
+                                <MessageBox data={data} isUser />
                             </View>
                         )
                     })}
@@ -125,12 +150,12 @@ export default function Message() {
                     <MaterialIcons name="mic" color={colorTheme.primaryColor} size={25} />
                     <TextInput
                         placeholder='Type Message here..'
-                        onChangeText={setSearch}
-                        value={search}
+                        onChangeText={setInput}
+                        value={input}
                         style={{ width: "80%" }}
                         multiline
                     />
-                    <MaterialIcons name="send" color={colorTheme.primaryColor} size={25} style={{marginRight:5}} />
+                    <MaterialIcons name="send" color={colorTheme.primaryColor} size={25} style={{ marginRight: 5 }} onPress={sendMessage} />
                 </View>
             </View>
         </View >
@@ -163,7 +188,6 @@ const styles = StyleSheet.create({
         fontWeight: blueText.fontWeight
     },
     textInput: {
-        // height: 48,
         borderRadius: 10,
         backgroundColor: "white",
         padding: 0,
@@ -173,9 +197,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         position: "absolute",
         bottom: 0,
-        alignSelf:"center",
-        flexDirection:"row",
-        justifyContent:"space-between"
+        alignSelf: "center",
+        flexDirection: "row",
+        justifyContent: "space-between"
     },
     image: {
         width: 60,

@@ -1,5 +1,5 @@
 import { Image, ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, Pressable, Dimensions, FlatList } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { colorTheme } from '../../constant'
 import DoctorCard from '../../components/DoctorCard'
 import ArticleCard from '../../components/ArticleCard'
@@ -14,6 +14,7 @@ import Category from '../../components/Modal/CategoryModal'
 import TopDoctorModal from '../../components/Modal/TopDoctorModal'
 import TopHospitalModal from '../../components/Modal/TopHospitalModal'
 import HospitalProfileCard from '../../components/HospitalProfileCard'
+import { articlesServices } from '../../services/Article'
 
 const data = [
   {
@@ -38,6 +39,8 @@ function Test(params) {
 
 
 export default function Home({ navigation }) {
+  const [article, setarticle] = useState({})
+  const [articleLoading, setarticleLoading] = useState(false)
   const [search, setSearch] = useState('')
   const [isPost, setIsPost] = useState(false)
   const [modalVisible, setModalVisible] = useState(false);
@@ -47,9 +50,21 @@ export default function Home({ navigation }) {
   const [topDoctorModal, setTopDoctorModal] = useState(false);
   const [topHosPitalModal, setTopHospitalModal] = useState(false);
 
+  useEffect(() => {
+    articlesServices.FetchArticles().then((
+      res => {
+        setarticle(res.data.articles)
+        setarticleLoading(true)
+      }
+    )).catch(err => { console.log('error fetching data'); })
+  }, [])
+
+
+  // articlesServices.FetchArticles()
+
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.subcontainer} stickyHeaderIndices={[8]}>
+      <ScrollView contentContainerStyle={styles.subcontainer}>
         <>
           {modalVisible
             ?
@@ -128,7 +143,7 @@ export default function Home({ navigation }) {
             style={[{ color: colorTheme.primaryColor, fontSize: 15 }]}>See All</Text>
         </View>
         <Carousel data={data}>
-          <DoctorCard isNavigate/>
+          <DoctorCard isNavigate />
         </Carousel>
 
         <View style={{}}>
@@ -158,10 +173,10 @@ export default function Home({ navigation }) {
           </View>
         </View>
         <Carousel data={data}>
-          <HospitalProfileCard isNavigate/>
+          <HospitalProfileCard isNavigate />
         </Carousel>
         <View style={[{ width: "90%", }]}>
-          <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <TouchableOpacity
               style={{ backgroundColor: isPost ? colorTheme.primaryColor : 'white', width: 120, height: 40, borderRadius: 50, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: colorTheme.primaryColor }}
               onPress={() => { setIsPost(true) }}
@@ -175,10 +190,10 @@ export default function Home({ navigation }) {
               <Text style={{ color: isPost ? "black" : 'white' }}>Articles</Text>
             </TouchableOpacity>
           </View>
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
+          {articleLoading ? article.map((obj, index) => (
+            <ArticleCard key={index} title={obj.title} desc={obj.description} image={obj.urlToImage}/>
+          )) :
+            <Text>Loading...</Text>}
         </View>
       </ScrollView >
     </View>

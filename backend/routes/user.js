@@ -11,6 +11,9 @@ const auth = require('../middleware/auth')
 
 const mailgun = require('../services/mailgun')
 
+router.get('/test',async(req,res)=>{
+    return res.status(200).json('success')
+})
 
 router.post('/register', registerValidator, async (req, res) => {
     try {

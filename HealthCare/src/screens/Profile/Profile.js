@@ -63,6 +63,7 @@ const profileIcon = [
 
 export default function Profile() {
   const [modalVisible, setModalVisible] = useState(false);
+  const navigatation=useNavigation()
   return (
     <View style={styles.container}>
       <ScrollView style={styles.subContainer}>
@@ -71,7 +72,7 @@ export default function Profile() {
           <View>
             <Image source={require('../../assets/img/user.jpg')} resizeMode='contain' style={styles.image} />
             <View style={{ position: "absolute", bottom: 0, right: 0, backgroundColor: colorTheme.primaryColor, borderRadius: 40 }}>
-              <MaterialCommunityIcons name={'pencil-plus'} color={"white"} size={25} style={{ padding: 5 }} onPress={() => { }} />
+              <MaterialCommunityIcons name={'pencil-plus'} color={"white"} size={25} style={{ padding: 5 }} onPress={()=>navigatation.navigate('SuccesfullRegistration')} />
             </View>
           </View>
           <Text style={[styles.bigText, { marginTop: 10 }]}>Esther Howard</Text>

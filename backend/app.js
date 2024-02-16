@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 
 const app = express()
+const host='192.168.1.36'
 
 app.use(
     bodyParser.urlencoded({
@@ -30,7 +31,7 @@ app.use('/api/appointment', require('./routes/appointment'))
 
 
 
-app.listen(9000, () => {
+app.listen(9000,host, () => {
     console.log(`Server listening at port ${9000}`);
 })
 

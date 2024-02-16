@@ -21,10 +21,15 @@ import Settings from '../Profile/Settings'
 import PasswordManager from '../Profile/PasswordManager'
 import PrivacyPolicy from '../Profile/PrivacyPolicy'
 import HelpCenter from '../Profile/HelpCenter'
+import CompleteProfile from '../Profile/CompleteProfile'
+import SuccesfullRegistration from '../Profile/SuccesfullRegistration'
 import SearchResult from '../Search/SearchResult'
 import Hospital from '../Hospital'
 import Favorites from '../Profile/Favorites'
 import ForgetPassword from '../Authentication/ForgetPassword'
+import DoctorHome from '../Doctor/DoctorHome'
+import Blogs from '../Doctor/Blogs'
+
 
 const Stack = createNativeStackNavigator()
 
@@ -54,8 +59,12 @@ export default function App() {
         <Stack.Screen name='PasswordManager' component={PasswordManager} options={{ headerShown: false }} />
         <Stack.Screen name='PrivacyPolicy' component={PrivacyPolicy} options={{ headerShown: false }} />
         <Stack.Screen name='HelpCenter' component={HelpCenter} options={{ headerShown: false }} />
+        <Stack.Screen name='CompleteProfile' component={CompleteProfile} options={{ headerShown: false }} />
         <Stack.Screen name='SearchResult' component={SearchResult} options={{ headerShown: false }} />
         <Stack.Screen name='Favorites' component={Favorites} options={{ headerShown: false }} />
+        <Stack.Screen name='DoctorHome' component={DoctorHome} options={{ headerShown: false }} />
+        <Stack.Screen name='Blogs' component={Blogs} options={{ headerShown: false }} />
+        <Stack.Screen name='SuccesfullRegistration' component={SuccesfullRegistration} options={{ headerShown: false }} />
       </Stack.Navigator>
   )
 }

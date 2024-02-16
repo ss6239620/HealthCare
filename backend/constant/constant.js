@@ -26,6 +26,7 @@ const GENDER = {
     FEMALE: "F"
 }
 
+const HEALTH_NEWS_API_KEY='0505bf26946c4c4f8804d1e91674edde'
 
 const DOCTOR_REGISTER_URL = 'https://www.nmc.org.in/MCIRest/open/getDataFromService?service=searchDoctor'
 

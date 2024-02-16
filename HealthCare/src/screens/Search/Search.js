@@ -50,11 +50,15 @@ export default function Profile() {
             <Ionicons name='person' size={25} color={"#E35F47"} />
             <Text style={[styles.bigText]}>Doctors</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ backgroundColor: "#EAF2FF", elevation: 3, width: 100, justifyContent: "center", alignItems: "center", borderRadius: 20 }}>
+          <TouchableOpacity
+            onPress={() => { navigation.navigate("VideoCall") }}
+            style={{ backgroundColor: "#EAF2FF", elevation: 3, width: 100, justifyContent: "center", alignItems: "center", borderRadius: 20 }}>
             <MaterialCommunityIcons name='pill' size={25} color={"#1648CE"} />
             <Text style={[styles.bigText]}>Pharmacy</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ backgroundColor: "#E4F8EB", elevation: 3, width: 100, justifyContent: "center", alignItems: "center", borderRadius: 20 }}>
+          <TouchableOpacity
+            onPress={() => { navigation.navigate("DoctorHome") }}
+            style={{ backgroundColor: "#E4F8EB", elevation: 3, width: 100, justifyContent: "center", alignItems: "center", borderRadius: 20 }}>
             <MaterialCommunityIcons name='hospital-building' size={25} color={"#117639"} />
             <Text style={[styles.bigText]}>Hospitals</Text>
           </TouchableOpacity>

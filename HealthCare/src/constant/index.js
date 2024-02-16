@@ -37,4 +37,8 @@ const blueText = {
 
 const API_URL='http://localhost:9000/api'
 
-export {  blackText, grayText, blueText,colorTheme,API_URL }
+const HEALTH_NEWS_API_KEY='0505bf26946c4c4f8804d1e91674edde'
+
+
+
+export {  blackText, grayText, blueText,colorTheme,API_URL,HEALTH_NEWS_API_KEY }
