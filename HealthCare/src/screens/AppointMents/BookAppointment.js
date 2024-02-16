@@ -8,7 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const days = ["Mon", "Tue", "Wed", "Th", "Fr", "Sat", "Sun"]
 
 export default function BookAppointment({navigation}) {
-    const [search, setSearch] = useState('')
+    const [customSchedule, setCustomSchedule] = useState('')
     const [selectDay, setSelectDay] = useState(0)
     const [selectTime, setSelectTime] = useState(0)
     return (
@@ -86,8 +86,8 @@ export default function BookAppointment({navigation}) {
                         <View>
                             <TextInput
                                 placeholder='Want a custom schedule?'
-                                onChangeText={setSearch}
-                                value={search}
+                                onChangeText={setCustomSchedule}
+                                value={customSchedule}
                                 style={{ height: 48, width: "92%" }}
                             />
                         </View>

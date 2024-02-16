@@ -27,7 +27,7 @@ export default function Template({ navigation }) {
             </View>
             <View style={styles.subContainer}>
                 <TouchableOpacity
-                    onPress={() => { navigation.navigate('Login') }}
+                    onPress={() => { navigation.navigate('LoginChoice') }}
                     style={{ backgroundColor: colorTheme.primaryColor, width: 60, height: 60, borderRadius: 50, elevation: 2, alignSelf: 'flex-end', justifyContent: 'center', alignItems: 'center' }}>
                     <MaterialCommunityIcons size={40} name={"arrow-right-thick"} color={"white"} />
                 </TouchableOpacity>

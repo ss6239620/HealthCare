@@ -6,7 +6,7 @@ import { colorTheme } from '../constant';
 export default function App({navigation}) {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate("GetStarted")
+      navigation.navigate("BottomTab")
     }, 4000);
   }, [])
   

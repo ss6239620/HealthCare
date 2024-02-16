@@ -4,6 +4,7 @@ import { blackText, blueText, colorTheme, grayText } from '../../constant'
 import Header from '../../components/Header'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import RadioButton from '../../components/RadioButton'
+import { appointmentServices } from '../../services/Appointment'
 
 function SelectPackage({packageTitle,icon,packagedesc,price}) {
     const [onClickRadio, setonClickRadio] = useState(false)
@@ -37,6 +38,9 @@ function SelectPackage({packageTitle,icon,packagedesc,price}) {
 }
 
 export default function SelectAppointmentPackage({navigation}) {
+    function handleNext(params) {
+        appointmentServices.BookAppointment()
+    }
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -51,6 +55,7 @@ export default function SelectAppointmentPackage({navigation}) {
                         <MaterialIcons name="keyboard-arrow-down" color={colorTheme.primaryColor} size={35} style={{}} />
                     </View>
                     <Text style={[styles.bigText, { marginTop: 25 }]}>Select Package</Text>
+                    <SelectPackage packageTitle={"Free Doctor Consultion"} packagedesc={"Chat With Doctor"} price={'0'} icon={"message"}/>
                     <SelectPackage packageTitle={"Messaging"} packagedesc={"Chat With Doctor"} price={"20"} icon={"message"}/>
                     <SelectPackage packageTitle={"Voice Call"} packagedesc={"Voice Call With Doctor"} price={"50"} icon={"wifi-calling-3"}/>
                     <SelectPackage packageTitle={"Video Call"} packagedesc={"Video Call With DIrector"} price={"100"} icon={"video-call"}/>
@@ -69,7 +74,7 @@ export default function SelectAppointmentPackage({navigation}) {
             }}>
                 <TouchableOpacity
                     style={{ backgroundColor: blueText.color, width: "90%", height: 40, borderRadius: 50, justifyContent: "center" }}
-                onPress={() => navigation.navigate('PatientDetails')}
+                onPress={() => handleNext()}
                 >
                     <Text style={[styles.smallText, { color: "white", alignSelf: 'center' }]}>Next</Text>
                 </TouchableOpacity>

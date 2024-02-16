@@ -7,6 +7,7 @@ import ArticleCard from '../../components/ArticleCard'
 import LottieView from 'lottie-react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native'
+import { WebView } from 'react-native-webview'
 
 
 export default function Profile() {
@@ -84,13 +85,29 @@ export default function Profile() {
           marginTop: 15,
           marginBottom: 5
         }}>
-          <Text style={[styles.bigText, { color: "#6A788E", fontWeight: "600", textAlign: "left" }]}>New Investigation</Text>
+          <Text style={[styles.bigText, { color: "#6A788E", fontWeight: "600", textAlign: "left" }]}>Find NearBy DOctors</Text>
         </View>
-        <View style={[{ width: "90%", }]}>
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
+        <View style={{ width: '90%', marginTop: 10, height: 600 }}>
+          <WebView
+            originWhitelist={['*']}
+            source={{
+              html: `
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d15053.894860220578!2d72.8395422!3d19.3919278!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1696074814477!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style="border:0;"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+              `,
+            }}
+            style={{ flex: 1 }}
+            onError={(error) => console.error('WebView error:', error)}
+          />
+        </View>
+        <View style={{ flex: 1, flexDirection: 'column' }}>
         </View>
       </View>
     </ScrollView>

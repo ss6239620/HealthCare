@@ -35,7 +35,7 @@ const blueText = {
     fontWeight: "600",
 }
 
-const API_URL='http://localhost:9000/api'
+const API_URL='https://telehealth.cyclic.app/api'
 
 const HEALTH_NEWS_API_KEY='0505bf26946c4c4f8804d1e91674edde'
 

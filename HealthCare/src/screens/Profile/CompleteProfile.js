@@ -3,10 +3,17 @@ import { View, Text, StyleSheet, ImageBackground, Image, ScrollView, TextInput, 
 import { blackText, blueText, colorTheme, grayText } from '../../constant';
 import Header from '../../components/Header';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { userServices } from '../../services/userAuth';
 
 const CompleteProfile = () => {
-    const [name, setName] = useState('')
-    const [change, setChange] = useState('')
+    const [gender, setGender] = useState('')
+    const [bloodGroup, setBloodGroup] = useState('')
+    const [age, setage] = useState('')
+
+    function handleUpdate(params) {
+        userServices.ProfileComplete(bloodGroup,age,gender)
+        
+    }
     return (
         <View style={styles.container}>
             {/* Header */}
@@ -33,59 +40,33 @@ const CompleteProfile = () => {
             {/* Main Content */}
             <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
                 <View style={{ marginBottom: 20 }}>
-                    <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Name</Text>
+                    <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Bloodgroup</Text>
                     <View style={styles.textInput}>
                         <TextInput
-                            placeholder='Enter Name'
-                            onChangeText={(text) => setName(text)}
-                            value={name}
+                            placeholder='AB(positive)'
+                            onChangeText={(text) => setBloodGroup(text)}
+                            value={bloodGroup}
                         />
                     </View>
                 </View>
                 <View style={{ marginBottom: 20 }}>
-                    <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Phone Number</Text>
+                    <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Age</Text>
                     <View style={[styles.textInput,]}>
-                        {!change ?
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 15 }}>
-                                <Text style={{ color: 'black' }}>+91 8355817181</Text>
-                                <Text
-                                    onPress={() => { setChange(true) }}
-                                    style={{ color: colorTheme.primaryColor }}>Change</Text>
-                            </View>
-                            :
-                            <TextInput
-                                placeholder='+91 711*******'
-                                onChangeText={(text) => setName(text)}
-                                value={name}
+                    <TextInput
+                                placeholder='18+'
+                                onChangeText={(text) => setage(text)}
+                                value={age}
                             />
-                        }
-                    </View>
-                </View>
-                <View style={{ marginBottom: 20 }}>
-                    <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Email</Text>
-                    <View style={styles.textInput}>
-                        <TextInput
-                            placeholder='example@gmail.com'
-                            onChangeText={(text) => setName(text)}
-                            value={name}
-                        />
-                    </View>
-                </View>
-                <View style={{ marginBottom: 20 }}>
-                    <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Date of Birth (DOB)</Text>
-                    <View style={styles.textInput}>
-                        <TextInput
-                            placeholder='DD/MM/YY'
-                            onChangeText={(text) => setName(text)}
-                            value={name}
-                        />
                     </View>
                 </View>
                 <View style={{ marginBottom: 20 }}>
                     <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Gender</Text>
-                    <View style={[styles.textInput, { flexDirection: 'row', justifyContent: 'space-between', padding: 8, alignItems: 'center' }]}>
-                        <Text>Gender</Text>
-                        <MaterialIcons name={'keyboard-arrow-down'} color={colorTheme.primaryColor} size={25} style={{ padding: 5 }} />
+                    <View style={styles.textInput}>
+                        <TextInput
+                            placeholder='Male'
+                            onChangeText={(text) => setGender(text)}
+                            value={gender}
+                        />
                     </View>
                 </View>
             </ScrollView>
@@ -94,7 +75,7 @@ const CompleteProfile = () => {
             <View style={styles.footer}>
                 <TouchableOpacity
                     style={{ backgroundColor: blueText.color, padding: 15, width: '100%', borderRadius: 50, justifyContent: "center", }}
-                // onPress={() => navigation.goBack()}
+                onPress={() => handleUpdate()}
                 >
                     <Text style={[styles.smallText, { color: "white", alignSelf: 'center' }]}>Update Profile</Text>
                 </TouchableOpacity>

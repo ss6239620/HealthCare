@@ -11,6 +11,7 @@ export default function Template({ navigation }) {
     const [email, setemail] = useState('')
     const [username, setUsename] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
 
     const auth = useSelector((state) => state.auth)
     const { errorMessageSignUp } = auth
@@ -75,8 +76,8 @@ export default function Template({ navigation }) {
                     <TextInput
                         secureTextEntry
                         placeholder='Confirm Password'
-                        onChangeText={(text) => setemail(text)}
-                        value={email}
+                        onChangeText={(text) => setConfirmPassword(text)}
+                        value={confirmPassword}
                         style={{ height: 48, width: "85%" }}
                     />
                 </View>
@@ -107,6 +108,9 @@ export default function Template({ navigation }) {
                         <Image source={require('../../assets/img/twitter.png')} resizeMode='contain' style={styles.image} />
                     </View>
                 </View>
+                <Text style={[styles.smallText, { textAlign: "center", marginTop: 10, }]}>
+                    Already have an account? <Text onPress={() => { navigation.navigate('Login') }} style={[styles.smallText, { color: colorTheme.primaryColor }]}>Sign In</Text>
+                </Text>
             </View>
         </ScrollView>
     )

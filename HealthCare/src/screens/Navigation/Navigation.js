@@ -4,7 +4,10 @@ import Splash from '../Splash'
 import GetStarted from '../Authentication/GetStarted'
 import VerifyAccount from '../Authentication/VerifyAccount'
 import SignUp from '../Authentication/SignUp'
+import DoctorRegister from '../Authentication/DoctorRegister'
 import Login from '../Authentication/Login'
+import Olddisease from '../Authentication/Olddisease'
+import LoginChoice from '../Authentication/LoginChoice'
 import BottomTab from '../../components/BottomTab'
 import DoctorDetail from '../AppointMents/DoctorDetail'
 import BookAppointment from '../AppointMents/BookAppointment'
@@ -39,6 +42,7 @@ export default function App() {
         <Stack.Screen name='Splash' component={Splash} options={{ headerShown: false }} />
         <Stack.Screen name='GetStarted' component={GetStarted} options={{ headerShown: false }} />
         <Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }} />
+        <Stack.Screen name='DoctorRegister' component={DoctorRegister} options={{ headerShown: false }} />
         <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
         <Stack.Screen name='ForgetPassword' component={ForgetPassword} options={{ headerShown: false }} />
         <Stack.Screen name='VerifyAccount' component={VerifyAccount} options={{ headerShown: false }} />
@@ -65,6 +69,8 @@ export default function App() {
         <Stack.Screen name='DoctorHome' component={DoctorHome} options={{ headerShown: false }} />
         <Stack.Screen name='Blogs' component={Blogs} options={{ headerShown: false }} />
         <Stack.Screen name='SuccesfullRegistration' component={SuccesfullRegistration} options={{ headerShown: false }} />
+        <Stack.Screen name='LoginChoice' component={LoginChoice} options={{ headerShown: false }} />
+        <Stack.Screen name='Olddisease' component={Olddisease} options={{ headerShown: false }} />
       </Stack.Navigator>
   )
 }

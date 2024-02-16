@@ -1,16 +1,20 @@
 import axios from "axios"
 import { API_URL } from "../constant"
-import { resetAuthAsyncStorage, setAuthAsyncStorage } from "./getAuthAsyncStorage"
+import { getJWTToken, resetAuthAsyncStorage, setAuthAsyncStorage } from "./getAuthAsyncStorage"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { navigate } from "./navRef"
 
 
-function Login(username, password) {
+function Login(email, password) {
+
     return new Promise((resolve, reject) => {
         axios.post(`${API_URL}/user/login`, {
-            userName: username,
+            email: email,
             password: password,
         }).then(async (response) => {
             try {
                 await setAuthAsyncStorage(response)
+                // console.log(response);
                 resolve(response)
             } catch (e) { reject(e) }
         }).catch((err) => {
@@ -35,15 +39,15 @@ async function Logout(getState) {
 }
 
 async function Signup(username, email, password) {
-    // console.log(username);
+    console.log(username);
     return new Promise((resolve, reject) => {
-        axios.post(`${API_URL}/user/register`, {
-            userName: username,
+        axios.post(`${API_URL}/user`, {
+            name: username,
             email: email,
             password: password,
         }).then(async (res) => {
             try {
-                console.log(res);
+                await setAuthAsyncStorage(res)
                 resolve(res)
             } catch (error) {
                 reject(error)
@@ -88,6 +92,75 @@ async function VerifyToken(email, token) {
     })
 }
 
+async function ProfileComplete(bloodGroup, age, gender) {
+    console.log('in profile');
+    const token = await AsyncStorage.getItem("userToken");
+    const body = {
+        bloodgroup: gender,
+        age: age,
+        gender: bloodGroup
+    }
+    const config = {
+        headers: {
+            'auth-token': token,
+        }
+    }
+    return new Promise((resolve, reject) => {
+
+        console.log(token);
+        axios.post(`${API_URL}/user/updateuser`,body,config
+        ).then(async (response) => {
+            try {
+                // await setAuthAsyncStorage(response)
+                console.log(response.data);
+                resolve(response)
+                navigate('Olddisease')
+            } catch (err) {
+                console.log();
+                reject(e)
+            }
+        }).catch((err) => {
+            console.log(err.response.data);
+            reject(err)
+        })
+    })
+}
+
+async function OlddiseaseForm(deases, from, consultation,isrecovered) {
+    console.log('in OLDDISEASE');
+    const token = await AsyncStorage.getItem("userToken");
+    const body = {
+        deases:"AB",
+        from:"10",
+        consultation:"10",
+        isrecovered:"male"
+      }
+    const config = {
+        headers: {
+            'auth-token': token,
+        }
+    }
+    return new Promise((resolve, reject) => {
+
+        console.log(token);
+        axios.post(`${API_URL}/user/updateuserdeases`,body,config
+        ).then(async (response) => {
+            try {
+                // await setAuthAsyncStorage(response)
+                console.log(response.data);
+                resolve(response)
+                navigate('BottomTab')
+            } catch (err) {
+                console.log();
+                reject(e)
+            }
+        }).catch((err) => {
+            console.log(err.response.data);
+            reject(err)
+        })
+    })
+}
+
 export const userServices = {
-    Logout, Login, Signup, ForgotPassword,VerifyToken
+    Logout, Login, Signup, ForgotPassword, VerifyToken, ProfileComplete,OlddiseaseForm
 }

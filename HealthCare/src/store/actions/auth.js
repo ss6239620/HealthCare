@@ -35,8 +35,9 @@ export const login = (username, password) => (dispatch) => {
     dispatch(loggingIn(true));
     userServices.Login(username, password).then(async (res) => {
         await dispatch(loggedIn(res.data));
-        navigate('BottomTab')
+        navigate('CompleteProfile')
     }).catch((err) => {
+        console.log(err.response);
         dispatch(errorLogIn(err.response.data.error))
     }).finally(() => {
         dispatch(loggingIn(false));

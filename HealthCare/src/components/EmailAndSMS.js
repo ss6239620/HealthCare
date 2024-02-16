@@ -1,5 +1,3 @@
-import qs from 'qs'
-
 import { Linking } from 'react-native';
 
 
