@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlatList, View, Text, StyleSheet, TouchableOpacity, PermissionsAndroid } from 'react-native';
 import Contacts from 'react-native-contacts';
 import ContactCard from '../../components/ContactCard';
 import { colorTheme } from '../../constant';
@@ -11,15 +11,30 @@ const ContactsList = () => {
     const [phoneNumber, setphoneNumber] = useState([]);
 
     useEffect(() => {
-        Contacts.getAll().then(contacts => {
-            setContacts(contacts);
-        });
+        async function handlePermission(params) {
+            const checkPemission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.READ_CONTACTS);
+            if (!checkPemission) {
+                let status = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS)
+                if (status === 'denied' || status === 'never_ask_again') {
+                    throw Error('Permissions not granted to access Contacts')
+                }
+                Contacts.getAll().then(contacts => {
+                    setContacts(contacts);
+                });
+            } else {
+                console.log("Permission already granted");
+                Contacts.getAll().then(contacts => {
+                    setContacts(contacts);
+                });
+            }
+        }
+        handlePermission()
     }, []);
 
     async function handleUpdate() {
         try {
             const updatedPhoneNumbers = phoneNumber.map(num => num.replace(/\s/g, ''));
-            await AsyncStorage.setItem("SOSNumber", JSON.stringify({phoneNumber:updatedPhoneNumbers}));
+            await AsyncStorage.setItem("SOSNumber", JSON.stringify({ phoneNumber: updatedPhoneNumbers }));
             console.log('number Saved');
         } catch (error) {
             console.log(error);
@@ -46,9 +61,9 @@ const ContactsList = () => {
                     keyExtractor={keyExtractor}
                     style={styles.list}
                 />
-                <TouchableOpacity 
-                    onPress={handleUpdate} 
-                    style={[styles.footerButton, isSaveDisabled && styles.disabledButton]} 
+                <TouchableOpacity
+                    onPress={handleUpdate}
+                    style={[styles.footerButton, isSaveDisabled && styles.disabledButton]}
                     disabled={isSaveDisabled}
                 >
                     <Text style={styles.footerButtonText}>Save Emergency Contact</Text>
