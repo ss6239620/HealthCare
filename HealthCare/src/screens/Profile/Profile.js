@@ -43,9 +43,19 @@ const profileIcon = [
     screen: 'Favorites'
   },
   {
+    name: 'video',
+    title: 'View Offline Videos',
+    screen: 'OfflineVideo'
+  },
+  {
     name: 'account',
     title: 'Settings',
     screen: 'Settings'
+  },
+  {
+    name: 'account',
+    title: 'SOS Settings',
+    screen: 'SOSSettings'
   },
   {
     name: 'help',
@@ -57,7 +67,6 @@ const profileIcon = [
     title: 'Privacy Policy',
     screen: 'PrivacyPolicy'
   },
-
 ]
 
 
@@ -66,9 +75,9 @@ export default function Profile() {
   const navigatation=useNavigation()
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.subContainer}>
+      <ScrollView style={styles.subContainer} showsVerticalScrollIndicator={false}>
         <Header leftIconName header={'Profile'} marginTop={10} titleMargin={40} />
-        <View style={{ marginVertical: 30, justifyContent: 'center', alignItems: 'center', }}>
+        <View style={{ marginVertical: 15, justifyContent: 'center', alignItems: 'center', }}>
           <View>
             <Image source={require('../../assets/img/user.jpg')} resizeMode='contain' style={styles.image} />
             <View style={{ position: "absolute", bottom: 0, right: 0, backgroundColor: colorTheme.primaryColor, borderRadius: 40 }}>

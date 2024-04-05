@@ -5,10 +5,13 @@ import Header from '../../components/Header'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
 import RadioButton from '../../components/RadioButton'
+import { PayNow } from '../../components/PayWithUpi'
 
 function Payment({ icon, method,colors }) {
   return (
-    <Pressable style={{ flexDirection: "row", borderWidth: 1, borderColor: colorTheme.borderColor, borderRadius: 10, height: 45, alignItems: 'center',marginTop:5 }}>
+    <Pressable 
+    onPress={()=>{PayNow()}}
+    style={{ flexDirection: "row", borderWidth: 1, borderColor: colorTheme.borderColor, borderRadius: 10, height: 45, alignItems: 'center',marginTop:5 }}>
       <FontAwesome6 name={icon} size={35} color={colors} style={{ marginLeft: 10, marginRight: 10 }} />
       <Text>{method}</Text>
     </Pressable>
@@ -19,7 +22,7 @@ export default function PaymentMethod() {
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>
-        <Header header={"Payment Methods"} leftIconName />
+        <Header header={"Payment Methods"} leftIconName titleMargin={20} />
         <Text style={[styles.bigText, { marginTop: 25 }]}>Credit & Debit Card</Text>
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 1, backgroundColor: "white", borderColor: colorTheme.borderColor, borderWidth: 1, height: 45, borderRadius: 10, marginTop: 15 }}>
           <View style={{ justifyContent: "center", alignItems: "center", flexDirection: "row" }}>
@@ -30,10 +33,8 @@ export default function PaymentMethod() {
             <RadioButton selected={selected} />
           </TouchableOpacity>
         </View>
-        <Text style={[styles.bigText, { marginTop: 25 }]}>More Payment Options</Text>
-        <Payment icon={"paypal"} method={"paypal"} colors={"#1822de"}/>
-        <Payment icon={"amazon-pay"} method={"amazon-pay"} colors={"black"} />
-        <Payment icon={"google-pay"} method={"google-pay"} colors={"black"}/>
+        <Text style={[styles.bigText, { marginTop: 25 }]}>Pay with UPI</Text>
+        <Payment icon={"google-pay"} method={"Click here to pay with upi"} colors={"black"}/>
       </View>
     </View>
   )

@@ -5,68 +5,81 @@ import Header from '../../components/Header';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { userServices } from '../../services/userAuth';
 
-const CompleteProfile = () => {
+const CompleteProfile = ({ navigation }) => {
     const [gender, setGender] = useState('')
     const [bloodGroup, setBloodGroup] = useState('')
     const [age, setage] = useState('')
+    const [phone, setPhone] = useState('')
 
     function handleUpdate(params) {
-        userServices.ProfileComplete(bloodGroup,age,gender)
-        
+        userServices.ProfileComplete(bloodGroup, age, gender, phone)
+        navigation.navigate('Olddisease', { phone: phone })
     }
     return (
         <View style={styles.container}>
-            {/* Header */}
-            <View style={{}}>
-                <ImageBackground
-                    source={require('../../assets/img/profile.jpg')}
-                    resizeMode="cover"
-                    style={{
-                        width: '100%', // Set the width to fill the container
-                        height: 180,   // Set the height according to your requirement    // Align text horizontally
-                        alignItems: 'center',
-                    }}
-                    borderBottomLeftRadius={50}
-                    borderBottomRightRadius={50}
-                >
-                    <View style={styles.header}>
-                        <Header leftIconName header={'Profile Setup'} titleMargin={30} textColor={'#fff'} />
-                        <View style={{ margin: 60, alignSelf: 'center' }}>
-                            <Image source={require('../../assets/img/user.jpg')} resizeMode='cover' style={styles.image} />
+            <ScrollView showsVerticalScrollIndicator={false} >
+                {/* Header */}
+                <View style={{}}>
+                    <ImageBackground
+                        source={require('../../assets/img/profile.jpg')}
+                        resizeMode="cover"
+                        style={{
+                            width: '100%', // Set the width to fill the container
+                            height: 180,   // Set the height according to your requirement    // Align text horizontally
+                            alignItems: 'center',
+                        }}
+                        borderBottomLeftRadius={50}
+                        borderBottomRightRadius={50}
+                    >
+                        <View style={styles.header}>
+                            <Header leftIconName header={'Profile Setup'} titleMargin={30} textColor={'#fff'} />
+                            <View style={{ margin: 60, alignSelf: 'center' }}>
+                                <Image source={require('../../assets/img/user.jpg')} resizeMode='cover' style={styles.image} />
+                            </View>
+                        </View>
+                    </ImageBackground>
+                </View>
+                {/* Main Content */}
+                <View style={styles.content}>
+                    <View style={{ marginBottom: 20 }}>
+                        <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Bloodgroup</Text>
+                        <View style={styles.textInput}>
+                            <TextInput
+                                placeholder='AB(positive)'
+                                onChangeText={(text) => setBloodGroup(text)}
+                                value={bloodGroup}
+                            />
                         </View>
                     </View>
-                </ImageBackground>
-            </View>
-            {/* Main Content */}
-            <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
-                <View style={{ marginBottom: 20 }}>
-                    <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Bloodgroup</Text>
-                    <View style={styles.textInput}>
-                        <TextInput
-                            placeholder='AB(positive)'
-                            onChangeText={(text) => setBloodGroup(text)}
-                            value={bloodGroup}
-                        />
-                    </View>
-                </View>
-                <View style={{ marginBottom: 20 }}>
-                    <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Age</Text>
-                    <View style={[styles.textInput,]}>
-                    <TextInput
+                    <View style={{ marginBottom: 20 }}>
+                        <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Age</Text>
+                        <View style={[styles.textInput,]}>
+                            <TextInput
                                 placeholder='18+'
                                 onChangeText={(text) => setage(text)}
                                 value={age}
                             />
+                        </View>
                     </View>
-                </View>
-                <View style={{ marginBottom: 20 }}>
-                    <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Gender</Text>
-                    <View style={styles.textInput}>
-                        <TextInput
-                            placeholder='Male'
-                            onChangeText={(text) => setGender(text)}
-                            value={gender}
-                        />
+                    <View style={{ marginBottom: 20 }}>
+                        <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Gender</Text>
+                        <View style={styles.textInput}>
+                            <TextInput
+                                placeholder='Male'
+                                onChangeText={(text) => setGender(text)}
+                                value={gender}
+                            />
+                        </View>
+                    </View>
+                    <View style={{ marginBottom: 20 }}>
+                        <Text style={[styles.smallText, { color: 'black', marginBottom: 5 }]}>Phone no</Text>
+                        <View style={styles.textInput}>
+                            <TextInput
+                                placeholder='7718833...'
+                                onChangeText={(text) => setPhone(text)}
+                                value={phone}
+                            />
+                        </View>
                     </View>
                 </View>
             </ScrollView>
@@ -75,7 +88,7 @@ const CompleteProfile = () => {
             <View style={styles.footer}>
                 <TouchableOpacity
                     style={{ backgroundColor: blueText.color, padding: 15, width: '100%', borderRadius: 50, justifyContent: "center", }}
-                onPress={() => handleUpdate()}
+                    onPress={() => handleUpdate()}
                 >
                     <Text style={[styles.smallText, { color: "white", alignSelf: 'center' }]}>Update Profile</Text>
                 </TouchableOpacity>

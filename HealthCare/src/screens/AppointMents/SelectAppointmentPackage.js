@@ -45,7 +45,7 @@ export default function SelectAppointmentPackage({navigation}) {
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.subContainer}>
-                    <Header header={"Select Package"} leftIconName />
+                    <Header header={"Select Package"} leftIconName titleMargin={30} />
                     <Text style={[styles.bigText, { marginTop: 25 }]}>Select Duration</Text>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 1, backgroundColor: "white", borderColor: colorTheme.borderColor, borderWidth: 1, height: 45, borderRadius: 10, marginTop: 15 }}>
                         <View style={{ justifyContent: "center", alignItems: "center", flexDirection: "row" }}>

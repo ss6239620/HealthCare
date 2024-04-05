@@ -5,8 +5,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { navigate } from "./navRef"
 
 
-function Login(email, password) {
-
+async function Login(email, password) {
+    await AsyncStorage.setItem('isDoctor', JSON.stringify({ isdoctor: false }))
     return new Promise((resolve, reject) => {
         axios.post(`${API_URL}/user/login`, {
             email: email,
@@ -39,7 +39,7 @@ async function Logout(getState) {
 }
 
 async function Signup(username, email, password) {
-    console.log(username);
+    await AsyncStorage.setItem('isDoctor', JSON.stringify({ isdoctor: false }))
     return new Promise((resolve, reject) => {
         axios.post(`${API_URL}/user`, {
             name: username,
@@ -54,7 +54,7 @@ async function Signup(username, email, password) {
             }
         }).catch((err) => {
             reject(err)
-            console.log(err);
+            console.log(err.response.data);
         })
     })
 }
@@ -92,13 +92,14 @@ async function VerifyToken(email, token) {
     })
 }
 
-async function ProfileComplete(bloodGroup, age, gender) {
+async function ProfileComplete(bloodGroup, age, gender, phone) {
     console.log('in profile');
     const token = await AsyncStorage.getItem("userToken");
     const body = {
         bloodgroup: gender,
         age: age,
-        gender: bloodGroup
+        gender: bloodGroup,
+        number: phone
     }
     const config = {
         headers: {
@@ -108,13 +109,12 @@ async function ProfileComplete(bloodGroup, age, gender) {
     return new Promise((resolve, reject) => {
 
         console.log(token);
-        axios.post(`${API_URL}/user/updateuser`,body,config
+        axios.post(`${API_URL}/user/updateuser`, body, config
         ).then(async (response) => {
             try {
                 // await setAuthAsyncStorage(response)
                 console.log(response.data);
                 resolve(response)
-                navigate('Olddisease')
             } catch (err) {
                 console.log();
                 reject(e)
@@ -126,30 +126,28 @@ async function ProfileComplete(bloodGroup, age, gender) {
     })
 }
 
-async function OlddiseaseForm(deases, from, consultation,isrecovered) {
+async function OlddiseaseForm(deases, from, consultation, isrecovered) {
     console.log('in OLDDISEASE');
     const token = await AsyncStorage.getItem("userToken");
     const body = {
-        deases:"AB",
-        from:"10",
-        consultation:"10",
-        isrecovered:"male"
-      }
+        deases: "AB",
+        from: "10",
+        consultation: "10",
+        isrecovered: "male"
+    }
     const config = {
         headers: {
             'auth-token': token,
         }
     }
     return new Promise((resolve, reject) => {
-
         console.log(token);
-        axios.post(`${API_URL}/user/updateuserdeases`,body,config
+        axios.post(`${API_URL}/user/updateuserdeases`, body, config
         ).then(async (response) => {
             try {
                 // await setAuthAsyncStorage(response)
                 console.log(response.data);
                 resolve(response)
-                navigate('BottomTab')
             } catch (err) {
                 console.log();
                 reject(e)
@@ -162,5 +160,5 @@ async function OlddiseaseForm(deases, from, consultation,isrecovered) {
 }
 
 export const userServices = {
-    Logout, Login, Signup, ForgotPassword, VerifyToken, ProfileComplete,OlddiseaseForm
+    Logout, Login, Signup, ForgotPassword, VerifyToken, ProfileComplete, OlddiseaseForm
 }

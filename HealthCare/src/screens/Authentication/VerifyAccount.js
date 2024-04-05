@@ -9,8 +9,6 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell
 } from 'react-native-confirmation-code-field'
-import { useDispatch, useSelector } from 'react-redux'
-import { Verify } from '../../store/actions/auth'
 
 const CELL_SIZE = 70;
 const CELL_BORDER_RADIUS = 8;
@@ -35,21 +33,19 @@ const animateCell = ({ hasValue, index, isFocused }) => {
   ]).start();
 };
 
-export default function Verification({ navigation }) {
-
-  const dispatch = useDispatch()
-  const auth = useSelector((state) => state.auth)
-  const { emailVerify,errorMessage } = auth
+export default function Verification({ navigation,route }) {
 
   const [value, setValue] = useState('')
+  const [errormsg, seterrmsg] = useState(null)
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue
   });
 
-  const handleVerify = () => {
-    dispatch(Verify(emailVerify, value))
+  function handleVerify() {
+    const { verify } = route.params;
+    `${verify}`===value?navigation.navigate('SuccesfullRegistration'):seterrmsg('OTP Does not match')
   }
 
   const renderCell = ({ index, symbol, isFocused }) => {
@@ -109,9 +105,7 @@ export default function Verification({ navigation }) {
           Please enter the verification number
           we send to your email
         </Text>
-        {errorMessage &&
-          <Text style={[styles.smallText, { color: 'red', textAlign: 'center', marginBottom: 10 }]}>{errorMessage}</Text>
-        }
+
         <View>
           <CodeField
             ref={ref}
@@ -125,10 +119,11 @@ export default function Verification({ navigation }) {
             renderCell={renderCell}
           />
           <Text style={{ textAlign: 'left', marginTop: 10 }}>Don't receive a code?<Text style={[{ color: colorTheme.primaryColor, fontSize: 15, fontWeight: 'bold' }]}> Resend</Text></Text>
+          {errormsg && <Text style={[styles.smallText,{textAlign:'center',marginTop:10,color:'red'}]}>{errormsg}</Text>}
         </View>
         <TouchableOpacity
           style={{ backgroundColor: colorTheme.primaryColor, borderRadius: 10, justifyContent: 'center', alignItems: "center", marginVertical: 50 }}
-          onPress={handleVerify}
+          onPress={()=>{handleVerify()}}
         >
           <Text style={[styles.smallText, { color: "white", margin: 14 }]}>Verify</Text>
         </TouchableOpacity>

@@ -15,7 +15,7 @@ export default function BookAppointment({navigation}) {
         <View style={styles.container}>
             <ScrollView>
                 <View style={[styles.subContainer,]}>
-                    <Header header={"Book Appointment"} leftIconName={"chevron-back"} />
+                    <Header header={"Book Appointment"} leftIconName={"chevron-back"} titleMargin={30} />
                 </View>
                 <DoctorProfileCard />
                 <View style={[styles.subContainer, { marginTop: 30 }]}>

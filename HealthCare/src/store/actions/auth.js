@@ -1,3 +1,4 @@
+import { doctorServices } from "../../services/doctorAuth";
 import { navigate } from "../../services/navRef";
 import { userServices } from "../../services/userAuth";
 import {
@@ -31,17 +32,30 @@ export const errorLogIn = (errorMessage) => ({
     payload: errorMessage,
 })
 
-export const login = (username, password) => (dispatch) => {
+export const login = (username, password, isdoctor) => (dispatch) => {
     dispatch(loggingIn(true));
-    userServices.Login(username, password).then(async (res) => {
-        await dispatch(loggedIn(res.data));
-        navigate('CompleteProfile')
-    }).catch((err) => {
-        console.log(err.response);
-        dispatch(errorLogIn(err.response.data.error))
-    }).finally(() => {
-        dispatch(loggingIn(false));
-    })
+
+    console.log(isdoctor);
+    isdoctor ?
+        doctorServices.Login(username, password).then(async (res) => {
+            await dispatch(loggedIn(res.data));
+            navigate('DoctorHome')
+        }).catch((err) => {
+            console.log(err.response);
+            dispatch(errorLogIn(err.response.data.error))
+        }).finally(() => {
+            dispatch(loggingIn(false));
+        })
+        :
+        userServices.Login(username, password).then(async (res) => {
+            await dispatch(loggedIn(res.data));
+            navigate('BottomTab')
+        }).catch((err) => {
+            console.log(err.response);
+            dispatch(errorLogIn(err.response.data.error))
+        }).finally(() => {
+            dispatch(loggingIn(false));
+        })
 }
 
 export const loggingOut = (loggingOut) => ({
@@ -85,16 +99,27 @@ export const errorSignUp = (errormessage) => ({
     payload: errormessage
 })
 
-export const Signup = (username, email, password) => (dispatch) => {
+export const Signup = (username, email, password, isdoctor) => (dispatch) => {
     dispatch(signingUp(true))
-    userServices.Signup(username, email, password).then(async (res) => {
-        await dispatch(signedUp(res.data));
-        navigate('BottomTab')
-    }).catch((err) => {
-        dispatch(errorSignUp(err.response.data.error))
-    }).finally(() => {
-        dispatch(loggingIn(false));
-    })
+
+    isdoctor ?
+        doctorServices.Signup(username, email, password).then(async (res) => {
+            await dispatch(signedUp(res.data));
+            navigate('DoctorCompleteProfile')
+        }).catch((err) => {
+            dispatch(errorSignUp(err.response.data.error))
+        }).finally(() => {
+            dispatch(loggingIn(false));
+        })
+        :
+        userServices.Signup(username, email, password).then(async (res) => {
+            await dispatch(signedUp(res.data));
+            navigate('CompleteProfile')
+        }).catch((err) => {
+            dispatch(errorSignUp(err.response.data.error))
+        }).finally(() => {
+            dispatch(loggingIn(false));
+        })
 }
 
 export const errorForgotPassword = (errormessage) => ({

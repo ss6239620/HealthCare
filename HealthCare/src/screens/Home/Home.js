@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, Pressable, Dimensions, FlatList } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, Pressable, Dimensions, FlatList, PermissionsAndroid } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { colorTheme } from '../../constant'
 import DoctorCard from '../../components/DoctorCard'
@@ -14,7 +14,11 @@ import Category from '../../components/Modal/CategoryModal'
 import TopDoctorModal from '../../components/Modal/TopDoctorModal'
 import TopHospitalModal from '../../components/Modal/TopHospitalModal'
 import HospitalProfileCard from '../../components/HospitalProfileCard'
+import { sendSmsData } from '../../components/SendSMS'
 import { articlesServices } from '../../services/Article'
+import Contacts from 'react-native-contacts'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import LottieView from 'lottie-react-native'
 
 const data = [
   {
@@ -31,14 +35,27 @@ const data = [
   },
 ];
 
+
 function Test(params) {
-  return (
-    <Text>Hello</Text>
-  )
+  // PayNow()
+}
+
+async function SendSOS(params) {
+  // sendSmsData(SMSDATA)
+  const phoneno=await AsyncStorage.getItem('SOSNumber')
+  const phone=JSON.parse(phoneno)
+
+  const SMSDATA = phone.phoneNumber.map(number => ({
+    phone: number,
+    msg: "Hello there is medical emergency pls contact me immediatlely"
+  }));
+
+  sendSmsData(SMSDATA)
 }
 
 
 export default function Home({ navigation }) {
+
   const [article, setarticle] = useState({})
   const [articleLoading, setarticleLoading] = useState(false)
   const [search, setSearch] = useState('')
@@ -64,6 +81,31 @@ export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Pressable
+        onPress={() => {
+          SendSOS()
+        }}
+        style={styles.fixedComponent}>
+        <View style={{ alignItems: 'center', height: 55, justifyContent: 'center' }}>
+          <Text style={[styles.boldText, { color: 'white' }]}>SOS</Text>
+        </View>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          // SendSOS()
+        }}
+        style={styles.fixedComponent1}>
+        <View style={styles.iconContainer}>
+          <Pressable onPress={() => { navigation.navigate('ChatBot') }}>
+            <LottieView
+              source={require('../../assets/json/bot.json')}
+              autoPlay
+              loop
+              style={{ width: 90, height: 90 }}
+            />
+          </Pressable>
+        </View>
+      </Pressable>
       <ScrollView contentContainerStyle={styles.subcontainer}>
         <>
           {modalVisible
@@ -113,11 +155,11 @@ export default function Home({ navigation }) {
               <MaterialIcons name="keyboard-arrow-down" color={colorTheme.primaryColor} size={25} />
             </Pressable>
           </View>
-          <Pressable
-            onPress={() => setNotificationModal(true)}
-            style={{ width: 32, height: 32, backgroundColor: "white", justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
-            <MaterialIcons name="notifications-active" color={colorTheme.primaryColor} size={25} />
-          </Pressable>
+          <View
+            style={{ width: 50, height: 32, backgroundColor: "white", justifyContent: "center", alignItems: "center", borderRadius: 50, flexDirection: 'row' }}>
+            <MaterialIcons name="videocam" color={colorTheme.primaryColor} size={25} style={{ marginRight: 10 }} onPress={() => { navigation.navigate("VideoCall") }} />
+            <MaterialIcons name="notifications-active" color={colorTheme.primaryColor} size={25} style={{ marginRight: 10 }} onPress={() => setNotificationModal(true)} />
+          </View>
         </View>
         <View style={{ width: '90%', marginBottom: 24, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
           <View style={styles.textInput}>
@@ -185,13 +227,16 @@ export default function Home({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
               style={{ backgroundColor: isPost ? "white" : colorTheme.primaryColor, width: 120, height: 40, borderRadius: 50, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: colorTheme.primaryColor }}
-              onPress={() => { setIsPost(false) }}
+              onPress={() => {
+                setIsPost(false)
+                // Test()
+              }}
             >
               <Text style={{ color: isPost ? "black" : 'white' }}>Articles</Text>
             </TouchableOpacity>
           </View>
           {articleLoading ? article.map((obj, index) => (
-            <ArticleCard key={index} title={obj.title} desc={obj.description} image={obj.urlToImage}/>
+            <ArticleCard key={index} title={obj.title} desc={obj.description} image={obj.urlToImage} />
           )) :
             <Text>Loading...</Text>}
         </View>
@@ -259,6 +304,39 @@ const styles = StyleSheet.create({
     width: '40%',
     height: '100%',
     marginRight: 5
+  },
+  fixedComponent: {
+    position: 'absolute',
+    bottom: 30,
+    width: '15%',
+    // height:50,
+    backgroundColor: 'red',
+    zIndex: 1,
+    left: 30,
+    borderRadius: 30,
+    opacity: 0.7
+
+    // Add any other styling properties you need for your fixed component
+  },
+  fixedComponent1: {
+    position: 'absolute',
+    bottom: 30,
+    width: 80,
+    height: 80,
+    // backgroundColor: colorTheme.primaryColor,
+    zIndex: 20,
+    right: 30,
+    borderRadius: 50, // half of width and height to make it circular
+    opacity: 2,
+    justifyContent: 'center', // Center vertically
+    alignItems: 'center', // Center horizontally
+  },
+  iconContainer: {
+    width: 60, // Adjust the width and height of the icon container as needed
+    height: 60,
+    borderRadius: 30, // half of width and height to make it circular
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
 })

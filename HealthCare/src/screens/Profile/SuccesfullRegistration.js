@@ -10,7 +10,7 @@ export default function SuccessFullRegistration() {
     useEffect(() => {
         setTimeout(() => {
           navigation.navigate("BottomTab")
-        }, 2500);
+        }, 1000);
       }, [])
     return (
         <View style={styles.container}>

@@ -21,8 +21,6 @@ async function BookAppointment() {
         }
     }
     return new Promise((resolve, reject) => {
-
-        console.log(token);
         axios.post(`${API_URL}/doctor/bookappoinment`, body, config
         ).then(async (response) => {
             try {

@@ -18,7 +18,6 @@ function Doctor(params) {
             {[1, 2, 3, 4].map((_, index) => (
                 <View key={index} style={{ backgroundColor: 'white', borderWidth: 0.5, borderColor: colorTheme.borderColor, borderRadius: 10, marginVertical: 5 }}>
                     <DoctorProfileCard isHeartTrue={true} isHeartRequire isButtonRequire onUpdate={update} />
-
                 </View>
             ))}
             {

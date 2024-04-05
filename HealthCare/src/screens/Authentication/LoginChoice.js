@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { blackText, blueText, colorTheme, grayText } from '../../constant';
 import Header from '../../components/Header';
-import { useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
 
 const App = () => {
     const navigation=useNavigation()

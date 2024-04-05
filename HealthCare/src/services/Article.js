@@ -4,7 +4,7 @@ import { HEALTH_NEWS_API_KEY } from "../constant";
 function FetchArticles() {
     return new Promise((resolve, reject) => {
         axios.get(
-            `https://newsapi.org/v2/everything?q=heart&from=2024-02-06&pageSize=10&sortBy=publishedAt&apiKey=${HEALTH_NEWS_API_KEY}`
+            `https://newsapi.org/v2/everything?q=health&from=2024-03-05&pageSize=10&sortBy=publishedAt&apiKey=${HEALTH_NEWS_API_KEY}`
         ).then(async (response) => {
             try {
                 resolve(response)

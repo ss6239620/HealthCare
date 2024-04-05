@@ -1,11 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { colorTheme, blackText, blueText, grayText } from '../../constant'
 import LottieView from 'lottie-react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { StackActions, useNavigation } from '@react-navigation/native'
 
 
-export default function Template({ navigation }) {
+export default function Template({  }) {
+    const navigation=useNavigation()
+    
     return (
         <View style={styles.container}>
             <View style={styles.bubble2}></View>
@@ -21,8 +24,8 @@ export default function Template({ navigation }) {
             <View style={styles.subContainer}>
 
                 <View style={{ alignItems: "center", margin: 10 }}>
-                    <Text style={styles.bigText}>Easy Time Management</Text>
-                    <Text style={styles.smallText}>With management based on priority and daily tasks, it will give you convenience in managing and determining the tasks that must be done first </Text>
+                    <Text style={styles.bigText}>We Take Care Of Your Health</Text>
+                    <Text style={styles.smallText}>Through care and expertise, healthcare shapes destinies, fostering wellness and resilience for humanity's journey.</Text>
                 </View>
             </View>
             <View style={styles.subContainer}>

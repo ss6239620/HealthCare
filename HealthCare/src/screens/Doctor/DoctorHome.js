@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import { colorTheme, blackText, blueText, grayText } from '../../constant'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { useNavigation } from '@react-navigation/native'
 import { navigate } from '../../services/navRef'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 const bubbleButton = [
@@ -13,23 +13,28 @@ const bubbleButton = [
             color: '#7166F9',
             name: 'Chat',
             icon: 'wechat',
+            route: 'DoctorChatRoom'
+
         },
         {
             color: '#FF7854',
             name: 'Blogs',
-            icon: 'edit-note'
+            icon: 'edit-note',
+            route: 'Blogs'
         },
     ],
     [
         {
             color: '#FEA725',
-            name: 'Ratings',
-            icon: 'star-rate'
+            name: 'VideoChat',
+            icon: 'videocam',
+            route: 'DoctorVideoCall'
         },
         {
             color: '#68EEBE',
             name: 'Medicine',
-            icon: 'medical-services'
+            icon: 'medical-services',
+            route: 'Medicine'
         },
     ],
 
@@ -73,9 +78,9 @@ const ApointmentCard = () => {
 }
 const Bubble = ({ data }) => {
     return (
-        <TouchableOpacity 
-        onPress={()=>{navigate('Blogs')}}
-        style={{ marginTop: 20, width: "48%", height: 140, backgroundColor: data.color, borderRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
+        <TouchableOpacity
+            onPress={() => { navigate(data.route) }}
+            style={{ marginTop: 20, width: "48%", height: 140, backgroundColor: data.color, borderRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
             <View style={{ backgroundColor: 'white', borderRadius: 10 }}>
                 <MaterialIcons name={data.icon} color={colorTheme.primaryColor} size={40} style={{ padding: 6, }} />
             </View>
@@ -84,7 +89,12 @@ const Bubble = ({ data }) => {
     )
 }
 export default function DoctorHome() {
-    const navigate=useNavigation()
+    
+    async function handleLogout(params) {
+        await AsyncStorage.removeItem("userToken")
+        await AsyncStorage.removeItem("isDoctor")
+        navigate('GetStarted')
+    }
     const [search, setsearch] = useState('')
     return (
         <View style={styles.container}>
@@ -106,12 +116,14 @@ export default function DoctorHome() {
                         style={{ height: 48, width: "92%" }}
                     />
                 </View>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center",marginTop:20 }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 20 }}>
                     <Text style={styles.bigText}>Today</Text>
-                    <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", width: 96, height: 30, backgroundColor: colorTheme.primaryColor, borderRadius: 50 }}>
+                    <TouchableOpacity 
+                    onPress={handleLogout}
+                    style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", width: 96, height: 30, backgroundColor: colorTheme.primaryColor, borderRadius: 50 }}>
                         <MaterialCommunityIcons name="plus-thick" color="white" size={15} />
                         <Text style={[styles.smallText, { color: "white", marginLeft: 5 }]}>Add</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: "row", marginTop: 15 }}>
                     {days.map((day, index) => {

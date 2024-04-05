@@ -17,8 +17,8 @@ import {
   RTCIceCandidate,
   RTCSessionDescription,
 } from 'react-native-webrtc';
-import IconContainer from './IconContainer';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import IconContainer from './IconContainer';
 import InCallManager from 'react-native-incall-manager';
 
 export default function App({ }) {
@@ -111,7 +111,6 @@ export default function App({ }) {
           videoSourceId = sourceInfo.deviceId;
         }
       }
-
       mediaDevices
         .getUserMedia({
           audio: true,
@@ -181,7 +180,7 @@ export default function App({ }) {
 
   async function processCall() {
     const sessionDescription = await peerConnection.current.createOffer();
-    await peerConnection.current.setLocalDescription(sessionDescription)
+    await peerConnection.current.setLocalDescription(sessionDescription);
     sendCall({
       calleeId: otherUserId.current,
       rtcMessage: sessionDescription,
@@ -193,7 +192,7 @@ export default function App({ }) {
       new RTCSessionDescription(remoteRTCMessage.current),
     );
     const sessionDescription = await peerConnection.current.createAnswer();
-    await peerConnection.current.setLocalDescription(sessionDescription)
+    await peerConnection.current.setLocalDescription(sessionDescription);
     answerCall({
       callerId: otherUserId.current,
       rtcMessage: sessionDescription,
@@ -404,7 +403,7 @@ export default function App({ }) {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <MaterialIcons size={28} color={'#fff'} name='call'/>
+            <MaterialIcons size={28} color={'#fff'} name='call' />
           </TouchableOpacity>
         </View>
       </View>
@@ -477,7 +476,6 @@ export default function App({ }) {
             }}
             Icon={() => {
               return <MaterialIcons size={26} color='#fff' name='call-end' />
-
             }}
           />
           <IconContainer
@@ -492,6 +490,7 @@ export default function App({ }) {
             Icon={() => {
               return localMicOn ? (
                 <MaterialIcons size={24} name={'mic'} color="#FFF" />
+
               ) : (
                 <MaterialIcons size={28} name={'mic-off'} color="#FFF" />
               );

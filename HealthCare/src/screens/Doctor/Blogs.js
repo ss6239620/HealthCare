@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { blackText, blueText, colorTheme, grayText } from '../../constant';
 import Header from '../../components/Header';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { BlogServices } from '../../services/BlogsServices';
 
 const icon=["link","image","play-circle-outline","poll"]
 
 const App = () => {
-    const [search, setsearch] = useState('')
+    const [title, setTitle] = useState('')
+    const [body, setBody] = useState('')
+
+    function handleNext(){
+        BlogServices.PostBlog(title,body)
+    }
 
     return (
         <View style={styles.container}>
@@ -20,18 +26,19 @@ const App = () => {
                 <View style={styles.textInput}>
                     <TextInput
                         placeholder='Title'
-                        onChangeText={(text) => setsearch(text)}
-                        value={search}
+                        onChangeText={(text) => setTitle(text)}
+                        value={title}
                         multiline
                         style={{ width: "92%" }}
                     />
                 </View>
-                <View style={[styles.textInput, { marginTop: 15 }]}>
+                <View style={[styles.textInput, { marginTop: 15, }]}>
                     <TextInput
                         placeholder='body text'
-                        onChangeText={(text) => setsearch(text)}
-                        value={search}
+                        onChangeText={(text) => setBody(text)}
+                        value={body}
                         style={{ width: "92%" }}
+                        multiline
                     />
                 </View>
             </View>
@@ -44,9 +51,11 @@ const App = () => {
                             <MaterialIcons name={_} color={'black'} size={30} key={index} />
                         ))}
                     </View>
-                    <View style={{ backgroundColor: colorTheme.primaryColor, borderRadius: 25, alignItems: 'center' }}>
+                    <TouchableOpacity 
+                    onPress={()=>{handleNext()}}
+                    style={{ backgroundColor: colorTheme.primaryColor, borderRadius: 25, alignItems: 'center' }}>
                         <Text style={[styles.smallText, { fontSize: 17, fontWeight: 'normal', color: 'white', paddingHorizontal: 10, paddingVertical: 5 }]}>Next</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>

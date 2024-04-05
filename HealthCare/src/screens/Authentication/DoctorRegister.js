@@ -12,14 +12,16 @@ export default function Template() {
     const [email, setemail] = useState('')
     const [username, setUsename] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
 
-    const navigation=useNavigation()
+
+    const navigation = useNavigation()
     const auth = useSelector((state) => state.auth)
     const { errorMessageSignUp } = auth
     const dispatch = useDispatch()
 
     async function handleClick(params) {
-        dispatch(Signup(username, email, password))
+        dispatch(Signup(username, email, password, true))
     }
 
     return (
@@ -38,7 +40,7 @@ export default function Template() {
                         <MaterialCommunityIcons size={25} name={"account"} color={"white"} style={{ margin: 10 }} />
                     </View>
                     <TextInput
-                        placeholder='Username'
+                        placeholder='Name'
                         onChangeText={(text) => setUsename(text)}
                         value={username}
                         style={{ height: 48, width: "85%" }}
@@ -77,8 +79,8 @@ export default function Template() {
                     <TextInput
                         secureTextEntry
                         placeholder='Confirm Password'
-                        onChangeText={(text) => setemail(text)}
-                        value={email}
+                        onChangeText={(text) => setConfirmPassword(text)}
+                        value={confirmPassword}
                         style={{ height: 48, width: "85%" }}
                     />
                 </View>
@@ -109,6 +111,9 @@ export default function Template() {
                         <Image source={require('../../assets/img/twitter.png')} resizeMode='contain' style={styles.image} />
                     </View>
                 </View>
+                <Text style={[styles.smallText, { textAlign: "center", marginTop: 10, }]}>
+                    Already have an account? <Text onPress={() => { navigation.navigate('DoctorLogin') }} style={[styles.smallText, { color: colorTheme.primaryColor }]}>Sign In</Text>
+                </Text>
             </View>
         </ScrollView>
     )
@@ -123,7 +128,7 @@ const styles = StyleSheet.create({
         // width: "90%",
         height: "auto",
         alignSelf: "center",
-        padding:20
+        padding: 20
         // backgroundColor:"red"
     },
     bigText: {
